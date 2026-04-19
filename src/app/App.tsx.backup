@@ -1,0 +1,173 @@
+import { Menu } from 'lucide-react';
+import { ImageWithFallback } from './components/figma/ImageWithFallback';
+
+export default function App() {
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <header className="bg-white shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
+              <span className="text-gray-600 font-bold">SRC</span>
+            </div>
+          </div>
+          <nav className="hidden md:flex items-center gap-8">
+            <a href="#about" className="text-gray-700 hover:text-blue-900">ABOUT</a>
+            <a href="#request" className="text-gray-700 hover:text-blue-900">REQUEST A SERVICE</a>
+            <a href="#quality" className="text-gray-700 hover:text-blue-900">QUALITY</a>
+            <a href="#membership" className="text-gray-700 hover:text-blue-900">MEMBERSHIP</a>
+          </nav>
+          <button className="md:hidden">
+            <Menu className="w-6 h-6 text-gray-700" />
+          </button>
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <section className="max-w-7xl mx-auto px-4 py-12">
+        <div className="grid md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h1 className="text-4xl md:text-5xl font-bold text-blue-900 mb-4">
+              SILVER RECRUIT CARE<br />
+              <span className="text-blue-700">IS COMPASSIONATE CARE</span>
+            </h1>
+            <p className="text-gray-600 mb-6">
+              Our primary goal is to report seniors with love that make a feeling of belonging,
+              value, and meaningful community.
+            </p>
+            <div className="flex flex-wrap gap-4 mb-6">
+              <button className="px-6 py-2 border-2 border-blue-900 text-blue-900 rounded-full hover:bg-blue-900 hover:text-white transition">
+                Request a Ride
+              </button>
+              <button className="px-6 py-2 border-2 border-blue-900 text-blue-900 rounded-full hover:bg-blue-900 hover:text-white transition">
+                Request a Service
+              </button>
+            </div>
+            <button className="px-8 py-3 bg-yellow-500 text-blue-900 font-bold rounded hover:bg-yellow-400 transition">
+              DONATE
+            </button>
+          </div>
+          <div className="relative">
+            <ImageWithFallback
+              src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=800&h=600&fit=crop"
+              alt="Elderly couple walking with caregiver"
+              className="w-full h-[400px] object-cover rounded-lg"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section className="bg-blue-900 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid md:grid-cols-3 gap-8 items-center">
+            <div className="md:col-span-2 flex flex-wrap gap-8 justify-center">
+              <div className="flex flex-col items-center">
+                <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center mb-2">
+                  <div className="text-blue-900 font-bold text-sm text-center">BBB<br />Rating</div>
+                </div>
+                <p className="text-sm">5 STAR</p>
+              </div>
+              <div className="flex flex-col items-center">
+                <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center mb-2">
+                  <div className="text-blue-900 font-bold text-sm text-center">Member<br />Verified</div>
+                </div>
+                <p className="text-sm">VERIFIED MEMBER</p>
+              </div>
+            </div>
+            <div className="flex justify-center md:justify-end">
+              <button className="px-8 py-3 bg-yellow-500 text-blue-900 font-bold rounded hover:bg-yellow-400 transition">
+                EXPLORE SERVICES
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Team Photo Section */}
+      <section className="py-12 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4">
+          <h2 className="text-center text-2xl md:text-3xl font-bold text-gray-800 mb-8">
+            Proudly serving the Greater Houston area since 2020
+          </h2>
+          <div className="mb-8">
+            <ImageWithFallback
+              src="https://images.unsplash.com/photo-1543269865-cbf427effbad?w=1200&h=400&fit=crop"
+              alt="Team photo"
+              className="w-full h-[300px] md:h-[400px] object-cover rounded-lg"
+            />
+          </div>
+
+          {/* Statistics */}
+          <div className="grid grid-cols-3 gap-4 max-w-3xl mx-auto text-center">
+            <div>
+              <div className="text-3xl md:text-4xl font-bold text-blue-900">1,000+</div>
+              <div className="text-gray-600 text-sm md:text-base">rides booked</div>
+            </div>
+            <div>
+              <div className="text-3xl md:text-4xl font-bold text-blue-900">5+</div>
+              <div className="text-gray-600 text-sm md:text-base">years of service</div>
+            </div>
+            <div>
+              <div className="text-3xl md:text-4xl font-bold text-blue-900">6</div>
+              <div className="text-gray-600 text-sm md:text-base">charity runs</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-gray-300 py-12">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid md:grid-cols-3 gap-8 mb-8">
+            <div>
+              <h3 className="text-white font-bold mb-4">Quick Links</h3>
+              <ul className="space-y-2">
+                <li><a href="#home" className="hover:text-white">Home</a></li>
+                <li><a href="#about" className="hover:text-white">About Us</a></li>
+                <li><a href="#services" className="hover:text-white">Services</a></li>
+                <li><a href="#contact" className="hover:text-white">Contact</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-white font-bold mb-4">About Us</h3>
+              <ul className="space-y-2">
+                <li><a href="#mission" className="hover:text-white">Our Mission</a></li>
+                <li><a href="#team" className="hover:text-white">Our Team</a></li>
+                <li><a href="#careers" className="hover:text-white">Careers</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-white font-bold mb-4">Support</h3>
+              <ul className="space-y-2">
+                <li><a href="#faq" className="hover:text-white">FAQ</a></li>
+                <li><a href="#privacy" className="hover:text-white">Privacy Policy</a></li>
+                <li><a href="#terms" className="hover:text-white">Terms of Service</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <div className="flex items-center gap-2 mb-4 md:mb-0">
+              <div className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-sm">SRC</span>
+              </div>
+              <span className="text-sm">© 2026 Silver Recruit Care</span>
+            </div>
+            <div className="flex gap-4">
+              <a href="#facebook" className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600">
+                <span className="text-xs">f</span>
+              </a>
+              <a href="#twitter" className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600">
+                <span className="text-xs">t</span>
+              </a>
+              <a href="#linkedin" className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-600">
+                <span className="text-xs">in</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
