@@ -1,5 +1,4 @@
 import { Menu } from "lucide-react";
-import { ImageWithFallback } from "./components/figma/ImageWithFallback";
 import logo from "../imports/shcLogo.jpg";
 import wheelsOfWellness from "../imports/WheelsOfWellness.png";
 import shcValues from "../imports/SHC_Values.png";
