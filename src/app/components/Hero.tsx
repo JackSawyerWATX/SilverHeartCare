@@ -20,9 +20,19 @@ export function Hero() {
               textShadow: "-3px 4px 4px rgba(0, 0, 0, 0.3)",
             }}
           >
-            <span className="text-gray-500">SILVER HEART CARE</span>
-            <br />
-            <span className="text-blue-500">IS COMPASSIONATE CARE</span>
+            <span
+              className="text-gray-500 text-6xl"
+              style={{
+                WebkitTextFillColor: "transparent",
+                WebkitTextStroke: "2px #8A8A8A",
+                paintOrder: "stroke",
+                display: "block",
+                marginBottom: "15px",
+              }}
+            >
+              SILVER HEART CARE
+            </span>
+            <span className="text-blue-500 text-6xl">IS COMPASSIONATE CARE</span>
           </h1>
         </div>
         {/* Glass Frame */}
