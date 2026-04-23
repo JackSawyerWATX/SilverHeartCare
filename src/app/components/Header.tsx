@@ -1,4 +1,5 @@
 import { Menu } from "lucide-react";
+import { Link } from "react-router";
 import logo from "../../imports/shcLogo.jpg";
 
 export function Header() {
@@ -6,21 +7,21 @@ export function Header() {
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-6 py-1 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <a href="#hero">
+          <Link to="/">
             <img
               src={logo}
               alt="Silver Recruit Care Logo"
               className="h-24 w-auto relative z-10"
             />
-          </a>
+          </Link>
         </div>
         <nav className="hidden md:flex items-center gap-10 text-lg">
-          <a
-            href="#about"
+          <Link
+            to="/about"
             className="text-gray-700 hover:text-blue-900 font-medium"
           >
             ABOUT
-          </a>
+          </Link>
           <a
             href="#request"
             className="text-gray-700 hover:text-blue-900 font-medium"
