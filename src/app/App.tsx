@@ -1,4 +1,4 @@
-import { Header } from "./components/Header";
+import { NavBar } from "./components/Header";
 import { Hero } from "./components/Hero";
 import { RequestButtons } from "./components/RequestButtons";
 import { TeamPhoto } from "./components/TeamPhoto";
@@ -9,7 +9,7 @@ export default function App() {
     <>
       <style>{`html { scroll-behavior: smooth; }`}</style>
       <div className="min-h-screen bg-white">
-        <Header />
+        <NavBar />
         <Hero />
         <RequestButtons />
         <TeamPhoto />
