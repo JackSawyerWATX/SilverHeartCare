@@ -1,8 +1,16 @@
-import { Menu } from "lucide-react";
+import { Menu, ChevronDown } from "lucide-react";
 import { Link } from "react-router";
+import { useState } from "react";
 import logo from "../../imports/shcLogo.jpg";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
-export function Header() {
+export function NavBar() {
+  const [open, setOpen] = useState(false);
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-6 py-1 flex items-center justify-between">
@@ -16,12 +24,34 @@ export function Header() {
           </Link>
         </div>
         <nav className="hidden md:flex items-center gap-10 text-lg">
-          <Link
-            to="/about"
-            className="text-gray-700 hover:text-blue-900 font-medium"
-          >
-            ABOUT
-          </Link>
+          <div className="flex items-center gap-1">
+            <Link
+              to="/about"
+              className="text-gray-700 hover:text-blue-900 font-medium"
+            >
+              ABOUT
+            </Link>
+            <DropdownMenu open={open} onOpenChange={setOpen}>
+              <DropdownMenuTrigger 
+                className="inline-flex items-center justify-center p-1 text-gray-700 hover:text-blue-900 font-medium cursor-pointer focus:outline-none"
+                onMouseOver={() => setOpen(true)}
+              >
+                <ChevronDown className="w-4 h-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem asChild>
+                  <Link to="/team" className="cursor-pointer">
+                    SHC Team
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/contact" className="cursor-pointer">
+                    Contact
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
           <a
             href="#request"
             className="text-gray-700 hover:text-blue-900 font-medium"
@@ -32,7 +62,7 @@ export function Header() {
             href="#quality"
             className="text-gray-700 hover:text-blue-900 font-medium"
           >
-            QUALITY
+            CHARITY RUN
           </a>
           <a
             href="#membership"
@@ -41,7 +71,7 @@ export function Header() {
             MEMBERSHIP
           </a>
         </nav>
-        <button className="md:hidden">
+        <button className="md:hidden focus:outline-none">
           <Menu className="w-6 h-6 text-gray-700" />
         </button>
       </div>
