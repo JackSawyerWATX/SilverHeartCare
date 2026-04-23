@@ -1,4 +1,6 @@
 
+import fbcc from "../../imports/FBCC.png";
+import kroger from "../../imports/KrogerRewards.png";
 
 export function About() {
   return (
@@ -24,7 +26,6 @@ export function About() {
           >
             About Silver Heart Care
           </h2>
-          <div></div>
         </div>
 
             {/* Impact Statement */}
@@ -60,7 +61,7 @@ export function About() {
               </ul>
           </div>
           <div className="bg-gray-300 h-96 rounded-lg flex items-center justify-center">
-            <span className="text-gray-500 text-lg">Add photo here</span>
+            <img src={fbcc} alt="FBCC" className="w-full h-full object-cover rounded-lg" />
           </div>
         </div>
 
@@ -170,6 +171,16 @@ export function About() {
                 <li>Atria Sugar Land</li>
                 <li>Bellerive Senior Living</li>
               </ul>
+            </div>
+
+            {/* Kroger Rewards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 items-center mt-12">
+              <div className="flex items-center justify-center">
+                <img src={kroger} alt="Kroger Community Rewards" className="w-64 h-40 object-contain rounded-lg"/>
+              </div>
+              <div>
+                <h3 className="text-3xl font-bold text-gray-800 mb-6">Members of The Kroger Community Rewards Program</h3>
+              </div>
             </div>
           </div>
     </section>
