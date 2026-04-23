@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router";
 import App from "./routes/home/App.tsx";
 import AboutPage from "./routes/about/AboutPage.tsx";
+import TeamPage from "./routes/team/TeamPage.tsx";
 import "./styles/index.css";
 
 createRoot(document.getElementById("root")!).render(
@@ -10,6 +11,7 @@ createRoot(document.getElementById("root")!).render(
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="/about" element={<AboutPage />} />
+      <Route path="/team" element={<TeamPage />} />
     </Routes>
   </BrowserRouter>
 );
