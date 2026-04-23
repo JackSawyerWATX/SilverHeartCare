@@ -216,21 +216,21 @@ const BOARD_MEMBERS: TeamMember[] = [
 ];
 
 const ADVISORY_BOARD = [
-  "Advisory 1",
-  "Advisory 2",
-  "Advisory 3",
-  "Advisory 4",
-  "Advisory 5",
-  "Advisory 6",
-  "Advisory 7",
-  "Advisory 8",
-  "Advisory 9",
-  "Advisory 10",
-  "Advisory 11",
-  "Advisory 12",
-  "Advisory 13",
-  "Advisory 14",
-  "Advisory 15",
+  "Advisor 1",
+  "Advisor 2",
+  "Advisor 3",
+  "Advisor 4",
+  "Advisor 5",
+  "Advisor 6",
+  "Advisor 7",
+  "Advisor 8",
+  "Advisor 9",
+  "Advisor 10",
+  "Advisor 11",
+  "Advisor 12",
+  "Advisor 13",
+  "Advisor 14",
+  "Advisor 15",
 ];
 
 // Main Componenets
