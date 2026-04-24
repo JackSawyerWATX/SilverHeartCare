@@ -1,5 +1,5 @@
 import { Menu, ChevronDown } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useState } from "react";
 import logo from "../../imports/shcLogo.jpg";
 import {
@@ -11,6 +11,7 @@ import {
 
 export function NavBar() {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-6 py-1 flex items-center justify-between">
@@ -52,12 +53,12 @@ export function NavBar() {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-          <a
-            href="#request"
-            className="text-gray-700 hover:text-blue-900 font-medium"
+          <button
+            onClick={() => navigate("/service-request")}
+            className="text-gray-700 hover:text-blue-900 font-medium cursor-pointer"
           >
             REQUEST A SERVICE
-          </a>
+          </button>
           <a
             href="#quality"
             className="text-gray-700 hover:text-blue-900 font-medium"
