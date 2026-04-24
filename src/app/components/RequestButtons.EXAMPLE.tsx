@@ -1,3 +1,9 @@
+/**
+ * RequestButtons Integration Example
+ * 
+ * This shows how to update RequestButtons.tsx to navigate to the service request form
+ */
+
 import { useNavigate } from "react-router";
 import wheelsOfWellness from "../../imports/WheelsOfWellness.png";
 import shcValues from "../../imports/SHC_Values.png";
@@ -5,6 +11,16 @@ import seniorGettingRide from "../../imports/seniorGettingRide.jpg";
 
 export function RequestButtons() {
   const navigate = useNavigate();
+
+  const handleRequestService = () => {
+    navigate("/service-request");
+  };
+
+  const handleRequestRide = () => {
+    // You can implement ride request form separately
+    navigate("/ride-request");
+  };
+
   return (
     <section className="bg-gray-200 relative h-[560px]">
       {/* Glass Frame */}
@@ -29,7 +45,10 @@ export function RequestButtons() {
         <div className="flex flex-col gap-4" style={{ maxWidth: "50%" }}>
           <div className="flex flex-col md:flex-row flex-wrap gap-4">
             <div className="flex flex-col items-center gap-4">
-              <button className="px-8 py-3 border-2 border-blue-900 text-blue-900 rounded-full font-medium hover:bg-blue-900 hover:text-white transition">
+              <button
+                onClick={handleRequestRide}
+                className="px-8 py-3 border-2 border-blue-900 text-blue-900 rounded-full font-medium hover:bg-blue-900 hover:text-white transition"
+              >
                 Request a Ride
               </button>
               <img
@@ -40,7 +59,7 @@ export function RequestButtons() {
             </div>
             <div className="flex flex-col items-center gap-4">
               <button
-                onClick={() => navigate("/service-request")}
+                onClick={handleRequestService}
                 className="px-8 py-3 border-2 border-blue-900 text-blue-900 rounded-full font-medium hover:bg-blue-900 hover:text-white transition"
               >
                 Request a Service
