@@ -29,7 +29,10 @@ export function RequestButtons() {
         <div className="flex flex-col gap-4" style={{ maxWidth: "50%" }}>
           <div className="flex flex-col md:flex-row flex-wrap gap-4">
             <div className="flex flex-col items-center gap-4">
-              <button className="px-8 py-3 border-2 border-blue-900 text-blue-900 rounded-full font-medium hover:bg-blue-900 hover:text-white transition">
+              <button
+                onClick={() => navigate("/ride-request")}
+                className="px-8 py-3 border-2 border-blue-900 text-blue-900 rounded-full font-medium hover:bg-blue-900 hover:text-white transition"
+              >
                 Request a Ride
               </button>
               <img
