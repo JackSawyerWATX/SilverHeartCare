@@ -98,8 +98,28 @@ export const ServiceRequestForm: React.FC<ServiceRequestFormProps> = ({
         signature,
       };
 
-      // In a real app, this would call an API endpoint
-      // For now, we'll simulate a successful submission
+      // TODO: EMAILJS API INTEGRATION
+      // Replace with actual EmailJS service call
+      // This will send the service request form data via email
+      // Documentation: https://www.emailjs.com/docs/
+      // import emailjs from '@emailjs/browser';
+      // await emailjs.send(
+      //   process.env.REACT_APP_EMAILJS_SERVICE_ID!,
+      //   process.env.REACT_APP_EMAILJS_TEMPLATE_ID!,
+      //   {
+      //     to_email: process.env.REACT_APP_NOTIFICATION_EMAIL!,
+      //     from_name: `${submissionData.firstName} ${submissionData.lastName}`,
+      //     from_email: submissionData.email,
+      //     phone: submissionData.phoneNumber,
+      //     service_type: submissionData.serviceType,
+      //     address: submissionData.address,
+      //     description: submissionData.description,
+      //     preferred_time: submissionData.preferredDateTime,
+      //   },
+      //   process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+      // );
+
+      // Simulate API delay for now
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       const result: FormSubmissionResult = {
