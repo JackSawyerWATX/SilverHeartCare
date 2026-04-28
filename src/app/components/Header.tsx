@@ -65,12 +65,12 @@ export function NavBar() {
           >
             CHARITY RUN
           </a>
-          <a
-            href="#membership"
+          <Link
+            to="/membership"
             className="text-gray-700 hover:text-blue-900 font-medium"
           >
             MEMBERSHIP
-          </a>
+          </Link>
         </nav>
         <button className="md:hidden focus:outline-none">
           <Menu className="w-6 h-6 text-gray-700" />

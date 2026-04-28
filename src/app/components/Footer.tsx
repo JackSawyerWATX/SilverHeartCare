@@ -1,4 +1,5 @@
 import { Phone, Mail, MapPin } from "lucide-react";
+import { Link } from "react-router";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -63,9 +64,9 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#membership" className="hover:text-white transition">
+                <Link to="/membership" className="hover:text-white transition">
                   Membership
-                </a>
+                </Link>
               </li>
               <li>
                 <a href="#impact" className="hover:text-white transition">
