@@ -146,14 +146,14 @@ export const RideBasicInfoSection: React.FC<RideBasicInfoSectionProps> = ({ cont
           name="pickupAddress"
           control={control}
           label="Pickup Address"
-          placeholder="123 Main Street"
+          placeholder="123 Main Street, Your City, ST, ZIP Code"
           required
         />
         <ControlledInput
           name="pickupStreet"
           control={control}
-          label="Street Address"
-          placeholder="Apt 4B or Suite 201"
+          label="Apartment or Unit Number"
+          placeholder="Unit 14-304 or Suite 201"
         />
       </div>
 
@@ -163,13 +163,13 @@ export const RideBasicInfoSection: React.FC<RideBasicInfoSectionProps> = ({ cont
           name="dropoffAddress"
           control={control}
           label="Dropoff Address"
-          placeholder="456 Oak Avenue"
+          placeholder="456 Oak Avenue, Your City, ST, ZIP Code"
           required
         />
         <ControlledInput
           name="dropoffStreet"
           control={control}
-          label="Street Address"
+          label="Suite or Unit Number"
           placeholder="Apt 5C or Suite 301"
         />
       </div>
