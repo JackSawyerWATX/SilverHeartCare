@@ -8,6 +8,7 @@ export function TeamPhoto() {
           src={teamPhoto}
           alt="Silver Heart Care team photo"
           className="w-full h-auto object-contain"
+          loading="lazy"
         />
         <div className="absolute top-0 left-0 right-0 backdrop-blur-sm bg-white/20 h-[100px] flex items-center justify-center">
           <h2
