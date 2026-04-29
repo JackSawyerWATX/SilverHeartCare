@@ -5,6 +5,9 @@
  */
 
 import { Link } from "react-router";
+import BrookdalePhoto from "../../imports/Brookdale.jpg";
+import RaceDay from "../../imports/12_5RaceDay.jpg";
+import CanDrive from "../../imports/1YearCanDrive.jpg"
 
 const SECTION_BACKGROUND = "linear-gradient(to bottom, #d1d5db 0%, #d1d5db 10%, #f3f4f6 20%, #f3f4f6 100%)";
 
@@ -15,19 +18,6 @@ const PAGE_TITLE_STYLES = {
   borderBottom: "4px solid #3b82f6",
   paddingBottom: "8px",
 };
-
-interface PhotoPlaceholderProps {
-  index: number;
-}
-
-const PhotoPlaceholder: React.FC<PhotoPlaceholderProps> = ({ index }) => (
-  <div className="bg-gray-300 h-80 rounded-lg flex items-center justify-center">
-    <div className="text-center">
-      <div className="text-gray-500 text-6xl mb-2">📸</div>
-      <p className="text-gray-600">Member Photo {index}</p>
-    </div>
-  </div>
-);
 
 export function Membership() {
   return (
@@ -75,9 +65,21 @@ export function Membership() {
         <div className="mb-16">
           <h2 className="text-3xl font-bold text-gray-800 mb-8">Member Gallery</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <PhotoPlaceholder index={1} />
-            <PhotoPlaceholder index={2} />
-            <PhotoPlaceholder index={3} />
+            {/* Photo 1 */}
+            <div>
+              <img src={BrookdalePhoto} alt="Brookdale Member Photo" className="h-80 rounded-lg object-cover w-full" />
+              <p className="text-gray-700 text-center font-semibold mt-3">Volunteers at Brookdale Senior Living.</p>
+            </div>
+            {/* Photo 2 */}
+            <div>
+              <img src={RaceDay} alt="Charity Run Photo" className="h-80 rounded-lg object-cover w-full" />
+              <p className="text-gray-700 text-center font-semibold mt-3">Charity Run</p>
+            </div>
+            {/* Photo 3 */}
+            <div>
+              <img src={CanDrive} alt="Food Drive Photo" className="h-80 rounded-lg object-cover w-full" />
+              <p className="text-gray-700 text-center font-semibold mt-3">Non perishable goods food drive</p>
+            </div>
           </div>
         </div>
       </div>
