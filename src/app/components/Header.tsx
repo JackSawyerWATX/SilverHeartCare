@@ -53,6 +53,12 @@ export function NavBar() {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
+          <Link
+            to="/gallery"
+            className="text-gray-700 hover:text-blue-900 font-medium"
+          >
+            GALLERY
+          </Link>
           <button
             onClick={() => navigate("/service-request")}
             className="text-xl hover:text-blue-900 font-semibold cursor-pointer text-gray-700"
