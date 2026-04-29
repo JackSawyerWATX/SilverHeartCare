@@ -48,6 +48,9 @@ export function Hero() {
             alt="Senior getting a ride"
             className="w-full h-full object-cover shadow-lg"
             style={{ borderTopLeftRadius: "9rem" }}
+            loading="lazy"
+            width={750}
+            height={500}
           />
         </div>
 
