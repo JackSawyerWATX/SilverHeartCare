@@ -190,7 +190,6 @@ const GOALS = [
 
 const SERVICES_PRIMARY = [
   "Household Help",
-  "Assistance with Technology",
   "Rides (Pickups and Dropoffs)",
   "Grocery Pickups",
   "and more!",

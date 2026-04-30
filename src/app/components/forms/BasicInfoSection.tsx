@@ -139,7 +139,6 @@ const ControlledSelect: React.FC<{
 
 export const BasicInfoSection: React.FC<BasicInfoSectionProps> = ({ control }) => {
   const serviceTypeOptions = [
-    { value: "TECH_ASSISTANCE", label: "Technological Assistance" },
     { value: "HOUSEHOLD_HELP", label: "Household Help" },
     { value: "OTHER", label: "Other" },
   ];
