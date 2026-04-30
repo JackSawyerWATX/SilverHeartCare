@@ -35,7 +35,6 @@ import run25_5 from "../../imports/CharityRun25/Run25_5.jpg";
 import run25_6 from "../../imports/CharityRun25/Run25_6.jpg";
 
 export default function GalleryPage() {
-  const slides = [1, 2, 3, 4, 5];
   const volunteerSlides = [1, 2, 3, 4, 5, 6];
   const charityRunSlides = [1, 2, 3, 4, 5, 6];
   const anniversarySlides = [1, 2, 3, 4, 5, 6];
