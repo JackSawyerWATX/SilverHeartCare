@@ -22,14 +22,15 @@ export function MembershipSignupPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div
+      className="flex flex-col min-h-screen"
+      style={{
+        background: "linear-gradient(to bottom, #d1d5db 0%, #d1d5db 10%, #f3f4f6 20%, #f3f4f6 100%)",
+      }}
+    >
       <NavBar />
       <section
         className="py-20 w-full"
-        style={{
-          background:
-            "linear-gradient(to bottom, #d1d5db 0%, #d1d5db 10%, #f3f4f6 20%, #f3f4f6 100%)",
-        }}
       >
         <div className="w-full px-[200px]">
           {/* Glass Panel */}

@@ -5,10 +5,6 @@ export function Hero() {
     <section
       id="hero"
       className="relative"
-      style={{
-        background:
-          "linear-gradient(to bottom, #d1d5db 0%, #d1d5db 10%, #f3f4f6 20%, #f3f4f6 100%)",
-      }}
     >
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="flex flex-col justify-center h-full min-h-[450px] relative z-20">
