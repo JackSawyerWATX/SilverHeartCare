@@ -73,10 +73,17 @@ export default function GalleryPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      <NavBar />
-      <main className="w-full">
-        <div className="max-w-7xl mx-auto px-6 py-16">
+    <>
+      <style>{`html { scroll-behavior: smooth; }`}</style>
+      <div 
+        className="min-h-screen"
+        style={{
+          background: "linear-gradient(to bottom, #d1d5db 0%, #d1d5db 10%, #f3f4f6 20%, #f3f4f6 100%)",
+        }}
+      >
+        <NavBar />
+        <main className="w-full">
+          <div className="max-w-7xl mx-auto px-6 py-16">
           <div className="mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Gallery
@@ -132,9 +139,10 @@ export default function GalleryPage() {
 
           <div className="mt-12 pt-8 border-t border-gray-200">
           </div>
-        </div>
-      </main>
-      <Footer />
-    </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    </>
   );
 }

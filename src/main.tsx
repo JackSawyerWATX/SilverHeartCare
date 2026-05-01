@@ -10,6 +10,7 @@ import { MembershipSignupPage } from "./routes/membership/MembershipSignupPage.t
 import { ServiceRequestPage } from "./routes/service-request/ServiceRequestPage.tsx";
 import { RideRequestPage } from "./routes/ride-request/RideRequestPage.tsx";
 import GalleryPage from "./routes/gallery/GalleryPage.tsx";
+import MediaPage from "./routes/media/MediaPage.tsx";
 import "./styles/index.css";
 
 createRoot(document.getElementById("root")!).render(
@@ -18,6 +19,7 @@ createRoot(document.getElementById("root")!).render(
       <Route path="/" element={<App />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/gallery" element={<GalleryPage />} />
+      <Route path="/media" element={<MediaPage />} />
       <Route path="/team" element={<TeamPage />} />
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/membership" element={<MembershipPage />} />

@@ -10,7 +10,8 @@ import {
 } from "./ui/dropdown-menu";
 
 export function NavBar() {
-  const [open, setOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
+  const [galleryOpen, setGalleryOpen] = useState(false);
   const navigate = useNavigate();
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
@@ -32,10 +33,10 @@ export function NavBar() {
             >
               ABOUT
             </Link>
-            <DropdownMenu open={open} onOpenChange={setOpen}>
+            <DropdownMenu open={aboutOpen} onOpenChange={setAboutOpen}>
               <DropdownMenuTrigger 
                 className="inline-flex items-center justify-center p-1 text-gray-700 hover:text-blue-900 font-medium cursor-pointer focus:outline-none"
-                onMouseOver={() => setOpen(true)}
+                onMouseOver={() => setAboutOpen(true)}
               >
                 <ChevronDown className="w-4 h-4" />
               </DropdownMenuTrigger>
@@ -53,12 +54,29 @@ export function NavBar() {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-          <Link
-            to="/gallery"
-            className="text-gray-700 hover:text-blue-900 font-medium"
-          >
-            GALLERY
-          </Link>
+          <div className="flex items-center gap-1">
+            <Link
+              to="/gallery"
+              className="text-gray-700 hover:text-blue-900 font-medium"
+            >
+              GALLERY
+            </Link>
+            <DropdownMenu open={galleryOpen} onOpenChange={setGalleryOpen}>
+              <DropdownMenuTrigger 
+                className="inline-flex items-center justify-center p-1 text-gray-700 hover:text-blue-900 font-medium cursor-pointer focus:outline-none"
+                onMouseOver={() => setGalleryOpen(true)}
+              >
+                <ChevronDown className="w-4 h-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem asChild>
+                  <Link to="/media" className="cursor-pointer">
+                    Media
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
           <button
             onClick={() => navigate("/service-request")}
             className="text-xl hover:text-blue-900 font-semibold cursor-pointer text-gray-700"
