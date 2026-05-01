@@ -4,7 +4,6 @@
  * Handles routing and page-level concerns
  */
 
-import React from "react";
 import { RideRequestForm } from "@/app/components/forms/RideRequestForm";
 import { RideRequestFormData } from "@/types/rideRequest";
 import { NavBar } from "@/app/components/Header";
