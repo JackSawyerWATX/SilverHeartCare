@@ -124,7 +124,7 @@ export default function GalleryPage() {
             <div className="mb-6">
               <h2 className="text-3xl font-bold text-gray-900 mb-2">4th Annual Charity 5K</h2>
               <p className="text-gray-600">
-                Photos from Silver Heart Care's Fourth Annual Charity 5K at Memorial Park in Sugar Land, Texas.
+                Photos from Silver Heart Care's Fourth Annual Charity 5K at Memorial Park in Sugar Land, Texas in 2025.
               </p>
             </div>
             <Gallery slides={charityRun25Slides} options={{ loop: true, dragFree: false }} getImageSrc={getCharityRun25ImageSrc} />
