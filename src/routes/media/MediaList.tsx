@@ -26,7 +26,7 @@ export function MediaList({ items, emptyMessage = "No media items available." }:
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+    <div className="flex flex-col gap-8 mb-12">
       {items.map((item) => (
         <MediaItemCard key={item.id} item={item} />
       ))}
