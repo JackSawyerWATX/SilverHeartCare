@@ -34,7 +34,7 @@ export default function MediaPage() {
                   ? "Unable to load media content."
                   : items.length === 0
                   ? "Media content coming soon."
-                  : "Explore our media resources and content."}
+                  : "Explore our media content."}
               </p>
             </div>
 

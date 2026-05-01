@@ -1,13 +1,5 @@
 /**
- * Media Module - SOLID Principles Implementation
- *
- * SOLID Principles:
- * - SRP: Each file has a single responsibility (types, data, hooks, components, page)
- * - OCP: Use custom hook abstraction to allow data source changes without modifying components
- * - LSP: Components follow consistent interfaces and are interchangeable
- * - ISP: Props interfaces are focused and only include necessary properties
- * - DIP: Components depend on the useMediaItems hook (abstraction), not directly on data
- *
+ * Media Module
  * File Structure:
  * - mediaTypes.ts: Type definitions (interface only)
  * - mediaData.ts: Data storage and management
