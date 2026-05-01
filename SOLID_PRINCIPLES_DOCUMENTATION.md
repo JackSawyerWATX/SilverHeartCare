@@ -3,6 +3,7 @@
  * 
  * This document explains how the Service Request Form was built following
  * SOLID principles and best practices for React/TypeScript development.
+ * This information was compiled to refrence during development.
  */
 
 /**
