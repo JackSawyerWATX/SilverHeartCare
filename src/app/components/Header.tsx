@@ -84,7 +84,9 @@ export function NavBar() {
             REQUEST A SERVICE
           </button>
           <a
-            href="#quality"
+            href="https://runsignup.com/Race/TX/SugarLand/SHCCharityRun"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-gray-700 hover:text-blue-900 font-medium"
           >
             CHARITY RUN

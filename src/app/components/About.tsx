@@ -37,7 +37,8 @@ interface PageTitleProps {
 
 interface ImpactStatementProps {
   heading: string;
-  content: string;
+  content?: string;
+  children?: React.ReactNode;
 }
 
 interface TwoColumnListProps {
@@ -88,11 +89,11 @@ function PageTitle({ title }: PageTitleProps) {
   );
 }
 
-function ImpactStatement({ heading, content }: ImpactStatementProps) {
+function ImpactStatement({ heading, content, children }: ImpactStatementProps) {
   return (
     <div className="bg-gradient-to-r from-blue-900 to-blue-800 rounded-lg p-12 text-white text-center mb-16">
       <h3 className="text-3xl font-bold mb-4">{heading}</h3>
-      <p className="text-lg leading-relaxed">{content}</p>
+      {children ? <div className="text-lg leading-relaxed">{children}</div> : <p className="text-lg leading-relaxed">{content}</p>}
     </div>
   );
 }
@@ -230,8 +231,10 @@ export function About() {
 
         <ImpactStatement 
           heading="Our Impact"
-          content="We are a registered 501(c)3 nonprofit organization based in Sugar Land, Texas. Our main goal is to support the well-being of seniors in our community."
-        />
+        >
+          <p>We are a registered 501(c)3 nonprofit organization based in Sugar Land, Texas.</p>
+          <p>Our main goal is to support the well-being of seniors in our community.</p>
+        </ImpactStatement>
 
         {/* Our Goals Section */}
         <Section 
