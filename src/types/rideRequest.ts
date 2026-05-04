@@ -6,17 +6,24 @@
 export interface RideRequestFormData {
   firstName: string;
   lastName: string;
-  pickupAddress: string;
-  pickupStreet: string;
-  dropoffAddress: string;
-  dropoffStreet: string;
   email: string;
   phoneNumber: string;
+  pickupAddress: string;
+  pickupUnit: string;
+  pickupCity: string;
+  pickupState: string;
+  pickupZip: string;
+  dropoffAddress: string;
+  dropoffUnit: string;
+  dropoffCity: string;
+  dropoffState: string;
+  dropoffZip: string;
   description: string;
   pickupDateTime: Date;
   returnDateTime?: Date;
   hearAboutUs: string;
-  signature: string;
+  termsAcknowledged: boolean;
+  isSigned: boolean;
 }
 
 export interface FormSubmissionResult {

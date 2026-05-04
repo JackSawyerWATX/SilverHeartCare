@@ -5,7 +5,7 @@
  */
 
 import React from "react";
-import { useController, Control, FieldValues } from "react-hook-form";
+import { useController, Control } from "react-hook-form";
 
 interface RideBasicInfoSectionProps {
   control: Control<any>;
@@ -141,36 +141,78 @@ export const RideBasicInfoSection: React.FC<RideBasicInfoSectionProps> = ({ cont
       </div>
 
       {/* Pickup Address */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <ControlledInput
+        name="pickupAddress"
+        control={control}
+        label="Pickup Address"
+        placeholder="123 Main Street"
+        required
+      />
+      <ControlledInput
+        name="pickupUnit"
+        control={control}
+        label="Apartment or Unit Number"
+        placeholder="Unit 14-304 or Suite 201"
+      />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <ControlledInput
-          name="pickupAddress"
+          name="pickupCity"
           control={control}
-          label="Pickup Address"
-          placeholder="123 Main Street, Your City, ST, ZIP Code"
+          label="City"
+          placeholder="Houston"
           required
         />
         <ControlledInput
-          name="pickupStreet"
+          name="pickupState"
           control={control}
-          label="Apartment or Unit Number"
-          placeholder="Unit 14-304 or Suite 201"
+          label="State"
+          placeholder="TX"
+          required
+        />
+        <ControlledInput
+          name="pickupZip"
+          control={control}
+          label="ZIP Code"
+          placeholder="77002"
+          required
         />
       </div>
 
       {/* Dropoff Address */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <ControlledInput
+        name="dropoffAddress"
+        control={control}
+        label="Dropoff Address"
+        placeholder="456 Oak Avenue"
+        required
+      />
+      <ControlledInput
+        name="dropoffUnit"
+        control={control}
+        label="Suite or Unit Number"
+        placeholder="Apt 5C or Suite 301"
+      />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <ControlledInput
-          name="dropoffAddress"
+          name="dropoffCity"
           control={control}
-          label="Dropoff Address"
-          placeholder="456 Oak Avenue, Your City, ST, ZIP Code"
+          label="City"
+          placeholder="Houston"
           required
         />
         <ControlledInput
-          name="dropoffStreet"
+          name="dropoffState"
           control={control}
-          label="Suite or Unit Number"
-          placeholder="Apt 5C or Suite 301"
+          label="State"
+          placeholder="TX"
+          required
+        />
+        <ControlledInput
+          name="dropoffZip"
+          control={control}
+          label="ZIP Code"
+          placeholder="77002"
+          required
         />
       </div>
 
@@ -195,7 +237,7 @@ export const RideBasicInfoSection: React.FC<RideBasicInfoSectionProps> = ({ cont
         <ControlledInput
           name="returnDateTime"
           control={control}
-          label="Return Date and Time"
+          label="Return Date and Time (optional)"
           type="datetime-local"
         />
       </div>

@@ -16,7 +16,6 @@ import SignaturePad from "./SignaturePad";
 import {
   ServiceRequestFormData,
   ServiceType,
-  FormSubmissionResult,
 } from "@/types/requestService";
 
 // Styles matching Contact form
@@ -52,6 +51,9 @@ export const ServiceRequestForm: React.FC<ServiceRequestFormProps> = ({
         firstName: "",
         lastName: "",
         address: "",
+        city: "",
+        state: "",
+        zip: "",
         roomNumber: "",
         email: "",
         phoneNumber: "",
@@ -98,50 +100,68 @@ export const ServiceRequestForm: React.FC<ServiceRequestFormProps> = ({
         signature,
       };
 
-      // TODO: EMAILJS API INTEGRATION
-      // Replace with actual EmailJS service call
-      // This will send the service request form data via email
-      // Documentation: https://www.emailjs.com/docs/
-      // import emailjs from '@emailjs/browser';
-      // await emailjs.send(
-      //   process.env.REACT_APP_EMAILJS_SERVICE_ID!,
-      //   process.env.REACT_APP_EMAILJS_TEMPLATE_ID!,
-      //   {
-      //     to_email: process.env.REACT_APP_NOTIFICATION_EMAIL!,
-      //     from_name: `${submissionData.firstName} ${submissionData.lastName}`,
-      //     from_email: submissionData.email,
-      //     phone: submissionData.phoneNumber,
-      //     service_type: submissionData.serviceType,
-      //     address: submissionData.address,
-      //     description: submissionData.description,
-      //     preferred_time: submissionData.preferredDateTime,
-      //   },
-      //   process.env.REACT_APP_EMAILJS_PUBLIC_KEY
-      // );
+      // Show loading toast
+      const toastId = toast.loading("Sending service request...");
 
-      // Simulate API delay for now
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // Format date for email
+      const preferredDateTime = new Date(formData.preferredDateTime).toLocaleString();
 
-      const result: FormSubmissionResult = {
-        success: true,
-        message: "Service request submitted successfully!",
-        data: submissionData,
-      };
+      // Send email using EmailJS
+      const result = await (window as any).emailjs.send(
+        "service_vlbveka",        // EmailJS service ID
+        "template_qqvs1g3", // Replace with your service request template ID
+        {
+          from_name: `${submissionData.firstName} ${submissionData.lastName}`,
+          from_email: submissionData.email,
+          phone: submissionData.phoneNumber,
+          service_type: submissionData.serviceType,
+          address: submissionData.address,
+          city: submissionData.city,
+          state: submissionData.state,
+          zip: submissionData.zip,
+          room_number: submissionData.roomNumber || "N/A",
+          preferred_time: preferredDateTime,
+          description: submissionData.description,
+          hear_about_us: submissionData.hearAboutUs,
+          signature: !!submissionData.signature, // Send as boolean: true if signed, false if not
+          to_email: "silverhearttest@gmail.com", // Replace with your recipient email
+        }
+      );
 
-      toast.success(result.message);
-      onSubmitSuccess?.(submissionData);
+      // Check if email was sent successfully
+      if (result.status === 200) {
+        // Dismiss loading toast and show success toast
+        toast.dismiss(toastId);
+        toast.success("Service request submitted successfully! We'll get back to you soon.", {
+          duration: 5000,
+        });
 
-      // Reset form
-      reset();
-      setSignature("");
-      setIsDisclaimerAcknowledged(false);
+        onSubmitSuccess?.(submissionData);
 
-      console.log("Form submitted:", submissionData);
+        // Reset form
+        reset();
+        setSignature("");
+        setIsDisclaimerAcknowledged(false);
+
+        console.log("Form submitted:", submissionData);
+      } else {
+        // Handle unexpected response
+        toast.dismiss(toastId);
+        toast.error("Failed to submit service request. Please try again.", {
+          duration: 5000,
+        });
+        onSubmitError?.("Failed to submit form");
+      }
     } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : "Failed to submit form";
-      toast.error(errorMessage);
-      onSubmitError?.(errorMessage);
+      // Handle network or other errors
+      console.error("Service request submission error:", error);
+      toast.error(
+        error instanceof Error
+          ? `Error: ${error.message}`
+          : "Failed to submit service request. Please check your connection and try again.",
+        { duration: 5000 }
+      );
+      onSubmitError?.(error instanceof Error ? error.message : "Submission failed");
     } finally {
       setIsSubmitting(false);
     }
