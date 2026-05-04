@@ -5,7 +5,7 @@
  */
 
 import React from "react";
-import { useController, Control, FieldValues } from "react-hook-form";
+import { useController, Control } from "react-hook-form";
 
 interface BasicInfoSectionProps {
   control: Control<any>;
@@ -189,12 +189,35 @@ export const BasicInfoSection: React.FC<BasicInfoSectionProps> = ({ control }) =
         placeholder="123 Main Street"
         required
       />
-      <ControlledInput
-        name="roomNumber"
-        control={control}
-        label="Room Number"
-        placeholder="Apt 4B or Room 201"
-      />
+        <ControlledInput
+          name="roomNumber"
+          control={control}
+          label="Room Number"
+          placeholder="Apt 4B or Room 201"
+        />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <ControlledInput
+          name="city"
+          control={control}
+          label="City"
+          placeholder="Anytown"
+          required
+        />
+        <ControlledInput
+          name="state"
+          control={control}
+          label="State"
+          placeholder="AB"
+          required
+        />
+        <ControlledInput
+          name="zip"
+          control={control}
+          label="ZIP Code"
+          placeholder="12345"
+          required
+        />
+      </div>
 
       {/* Service Details */}
       <ControlledSelect

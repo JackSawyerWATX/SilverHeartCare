@@ -5,7 +5,7 @@
  * Matches Service Request form design
  */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
@@ -13,7 +13,7 @@ import { Loader2 } from "lucide-react";
 import RideBasicInfoSection from "./RideBasicInfoSection";
 import RideDisclaimerSection from "./RideDisclaimerSection";
 import SignaturePad from "./SignaturePad";
-import { RideRequestFormData, FormSubmissionResult } from "@/types/rideRequest";
+import { RideRequestFormData } from "@/types/rideRequest";
 
 // Styles matching Contact and Service Request forms
 const PAGE_TITLE_STYLES = {
@@ -42,22 +42,38 @@ export const RideRequestForm: React.FC<RideRequestFormProps> = ({
   const [isDisclaimerAcknowledged, setIsDisclaimerAcknowledged] = useState(false);
   const [signature, setSignature] = useState<string>("");
 
+  // Initialize EmailJS on component mount
+  useEffect(() => {
+    if ((window as any).emailjs) {
+      (window as any).emailjs.init({
+        publicKey: "P04g8tzTaVqqub8L0",
+      });
+    }
+  }, []);
+
   const { control, handleSubmit, reset, formState: { errors } } = useForm<RideRequestFormData>(
     {
       defaultValues: {
         firstName: "",
         lastName: "",
-        pickupAddress: "",
-        pickupStreet: "",
-        dropoffAddress: "",
-        dropoffStreet: "",
         email: "",
         phoneNumber: "",
+        pickupAddress: "",
+        pickupUnit: "",
+        pickupCity: "",
+        pickupState: "",
+        pickupZip: "",
+        dropoffAddress: "",
+        dropoffUnit: "",
+        dropoffCity: "",
+        dropoffState: "",
+        dropoffZip: "",
         description: "",
         pickupDateTime: new Date(),
-        returnDateTime: undefined,
+        returnDateTime: new Date(),
         hearAboutUs: "",
-        signature: "",
+        termsAcknowledged: false,
+        isSigned: false,
       },
     }
   );
@@ -93,52 +109,81 @@ export const RideRequestForm: React.FC<RideRequestFormProps> = ({
       // Prepare submission data
       const submissionData: RideRequestFormData = {
         ...formData,
-        signature,
+        termsAcknowledged: isDisclaimerAcknowledged,
+        isSigned: !!signature,
       };
 
-      // TODO: UBER HEALTH API INTEGRATION
-      // Replace with actual Uber Health API call
-      // This will request a ride through Uber Health's transportation service
-      // Documentation: https://developer.uber.com/docs/riders/references/api/v2_1-requests-post
-      // const response = await fetch('https://api.uber.com/v2/requests', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'Authorization': `Bearer ${process.env.REACT_APP_UBER_HEALTH_TOKEN}`,
-      //   },
-      //   body: JSON.stringify({
-      //     pickup_latitude: submissionData.pickupLat,
-      //     pickup_longitude: submissionData.pickupLon,
-      //     dropoff_latitude: submissionData.dropoffLat,
-      //     dropoff_longitude: submissionData.dropoffLon,
-      //     product_id: 'uber-health',
-      //     scheduled_time: submissionData.pickupDateTime.getTime(),
-      //     notes: submissionData.description,
-      //   })
-      // });
-      // const result = await response.json();
+      // Show loading toast
+      const toastId = toast.loading("Sending ride request...");
 
-      // Simulate API delay for now
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // Format dates for email
+      const pickupDateTime = new Date(formData.pickupDateTime).toLocaleString();
+      const returnDateTime = formData.returnDateTime 
+        ? new Date(formData.returnDateTime).toLocaleString()
+        : "Not specified";
 
-      const result: FormSubmissionResult = {
-        success: true,
-        message: "Ride request submitted successfully!",
-        data: submissionData,
-      };
+      // Send email using EmailJS
+      const result = await (window as any).emailjs.send(
+        "service_vlbveka",        // EmailJS service ID
+        "template_4aet21w",       // Ride Request template ID
+        {
+          from_name: `${submissionData.firstName} ${submissionData.lastName}`,
+          from_email: submissionData.email,
+          phone: submissionData.phoneNumber,
+          pickup_address: submissionData.pickupAddress,
+          pickup_unit: submissionData.pickupUnit || "N/A",
+          pickup_city: submissionData.pickupCity,
+          pickup_state: submissionData.pickupState,
+          pickup_zip: submissionData.pickupZip,
+          dropoff_address: submissionData.dropoffAddress,
+          dropoff_unit: submissionData.dropoffUnit || "N/A",
+          dropoff_city: submissionData.dropoffCity,
+          dropoff_state: submissionData.dropoffState,
+          dropoff_zip: submissionData.dropoffZip,
+          description: submissionData.description,
+          pickup_time: pickupDateTime,
+          return_time: returnDateTime,
+          hear_about_us: submissionData.hearAboutUs,
+          terms_acknowledged: submissionData.termsAcknowledged,
+          signature: submissionData.isSigned,
+          to_email: "silverhearttest@gmail.com",
+        }
+      );
 
-      toast.success(result.message);
-      onSubmitSuccess?.(submissionData);
+      // Check if email was sent successfully
+      if (result.status === 200) {
+        // Dismiss loading toast and show success toast
+        toast.dismiss(toastId);
+        toast.success("Ride request submitted successfully! We'll get back to you soon.", {
+          duration: 5000,
+        });
 
-      // Reset form
-      reset();
-      setSignature("");
-      setIsDisclaimerAcknowledged(false);
+        onSubmitSuccess?.(submissionData);
+
+        // Reset form
+        reset();
+        setSignature("");
+        setIsDisclaimerAcknowledged(false);
+
+        console.log("Form submitted:", submissionData);
+      } else {
+        // Handle unexpected response
+        toast.dismiss(toastId);
+        toast.error("Failed to submit ride request. Please try again.", {
+          duration: 5000,
+        });
+        onSubmitError?.("Failed to submit form");
+      }
     } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : "Failed to submit form";
-      toast.error(errorMessage);
-      onSubmitError?.(errorMessage);
+      // Handle network or other errors
+      console.error("Ride request submission error:", error);
+      toast.error(
+        error instanceof Error
+          ? `Error: ${error.message}`
+          : "Failed to submit ride request. Please check your connection and try again.",
+        { duration: 5000 }
+      );
+      onSubmitError?.(error instanceof Error ? error.message : "Submission failed");
     } finally {
       setIsSubmitting(false);
     }
@@ -152,14 +197,13 @@ export const RideRequestForm: React.FC<RideRequestFormProps> = ({
           className="text-5xl md:text-6xl font-bold mb-8 inline-block"
           style={PAGE_TITLE_STYLES}
         >
-          Ride Request Form
+          Request a Ride
         </h1>
       </div>
 
       {/* Intro Text */}
-      <p className="text-gray-700 text-base mb-8 leading-relaxed">
-        Please submit a form at least 24 hours prior to the ride. To ensure smooth communication,
-        please actively check your phone and email for any messages from the SHC team.
+      <p className="text-gray-700 text-lg leading-relaxed mb-8">
+        Please submit a ride request at least 24 hours in advance. We'll confirm availability and details with you shortly.
       </p>
 
       {/* Transparent Form Container - on Glass Panel */}

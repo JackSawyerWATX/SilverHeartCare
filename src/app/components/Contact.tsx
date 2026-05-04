@@ -237,12 +237,12 @@ export function Contact() {
       // Send email using EmailJS
       const result = await (window as any).emailjs.send(
         "service_vlbveka",        // EmailJS service ID
-        "template_4aet21w",       // EmailJS template ID
+        "template_qqvs1g3",       // Same template as Service Request - only uses provided fields
         {
           from_name: formData.name,
           from_email: formData.email,
           phone: formData.phone,
-          message: formData.comments,
+          description: formData.comments,
           to_email: "silverhearttest@gmail.com", // email address to receive messages
         }
       );

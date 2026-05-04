@@ -14,6 +14,9 @@ export interface ServiceRequestFormData {
   lastName: string;
   address: string;
   roomNumber: string;
+  city: string;
+  state: string;
+  zip: string;
   email: string;
   phoneNumber: string;
   serviceType: ServiceType;
