@@ -231,6 +231,9 @@ export function Contact() {
     setIsSubmitting(true);
 
     try {
+      // Show loading toast
+      const toastId = toast.loading("Sending your message...");
+
       // Send email using EmailJS
       const result = await (window as any).emailjs.send(
         "service_vlbveka",        // EmailJS service ID
@@ -244,10 +247,15 @@ export function Contact() {
         }
       );
 
+      // Check if email was sent successfully
       if (result.status === 200) {
-        toast.success("Message sent successfully! We'll get back to you soon.");
+        // Dismiss loading toast and show success toast
+        toast.dismiss(toastId);
+        toast.success("Message sent successfully! We'll get back to you soon.", {
+          duration: 5000,
+        });
         
-        // Reset form
+        // Reset form only after successful send
         setFormData({
           name: "",
           phone: "",
@@ -255,10 +263,22 @@ export function Contact() {
           comments: "",
         });
         setErrors({});
+      } else {
+        // Handle unexpected response
+        toast.dismiss(toastId);
+        toast.error("Failed to send message. Please try again.", {
+          duration: 5000,
+        });
       }
     } catch (error) {
+      // Handle network or other errors
       console.error("Email send error:", error);
-      toast.error("Failed to send message. Please try again later.");
+      toast.error(
+        error instanceof Error
+          ? `Error: ${error.message}`
+          : "Failed to send message. Please check your connection and try again.",
+        { duration: 5000 }
+      );
     } finally {
       setIsSubmitting(false);
     }
