@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 
 // Styles and Constraints
@@ -185,6 +185,15 @@ export function Contact() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Initialize EmailJS on component mount
+  useEffect(() => {
+    if ((window as any).emailjs) {
+      (window as any).emailjs.init({
+        publicKey: "P04g8tzTaVqqub8L0",
+      });
+    }
+  }, []);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -221,20 +230,38 @@ export function Contact() {
 
     setIsSubmitting(true);
 
-    // TODO: Connect to EmailJS tomorrow
-    // For now, just show success message
-    console.log("Form submitted:", formData);
-    toast.success("Message sent successfully! We'll get back to you soon.");
+    try {
+      // Send email using EmailJS
+      const result = await (window as any).emailjs.send(
+        "service_vlbveka",        // EmailJS service ID
+        "template_4aet21w",       // EmailJS template ID
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          phone: formData.phone,
+          message: formData.comments,
+          to_email: "silverhearttest@gmail.com", // email address to receive messages
+        }
+      );
 
-    // Reset form
-    setFormData({
-      name: "",
-      phone: "",
-      email: "",
-      comments: "",
-    });
-    setErrors({});
-    setIsSubmitting(false);
+      if (result.status === 200) {
+        toast.success("Message sent successfully! We'll get back to you soon.");
+        
+        // Reset form
+        setFormData({
+          name: "",
+          phone: "",
+          email: "",
+          comments: "",
+        });
+        setErrors({});
+      }
+    } catch (error) {
+      console.error("Email send error:", error);
+      toast.error("Failed to send message. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
