@@ -9,6 +9,8 @@ import { ServiceRequestFormData } from "@/types/requestService";
 import { NavBar } from "@/app/components/Header";
 import { Footer } from "@/app/components/Footer";
 import { Toaster } from "sonner";
+import SEO from "@/components/SEO";
+import { SEO_METADATA, generateServiceSchema } from "@/utils/seoMetadata";
 
 export function ServiceRequestPage() {
   const handleSubmitSuccess = (data: ServiceRequestFormData) => {
@@ -23,6 +25,10 @@ export function ServiceRequestPage() {
 
   return (
     <>
+      <SEO 
+        metadata={SEO_METADATA.serviceRequest}
+        structuredData={generateServiceSchema()}
+      />
       <Toaster />
       <div
         className="flex flex-col min-h-screen"

@@ -9,12 +9,15 @@ import { NavBar } from "../../app/components/Header";
 import { Footer } from "../../app/components/Footer";
 import { MediaList } from "./MediaList";
 import { useMediaItems } from "./useMediaItems";
+import SEO from "@/components/SEO";
+import { SEO_METADATA } from "@/utils/seoMetadata";
 
 export default function MediaPage() {
   const { items, isLoading, error } = useMediaItems();
 
   return (
     <>
+      <SEO metadata={SEO_METADATA.media} />
       <style>{`html { scroll-behavior: smooth; }`}</style>
       <div
         className="min-h-screen"

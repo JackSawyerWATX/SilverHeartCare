@@ -1,0 +1,21 @@
+# Robots.txt for Silver Heart Care
+# Allows search engine crawlers to index the site
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /*.json$
+Disallow: /*?*
+
+# Specific search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Sitemap location
+Sitemap: https://silverheartcare.org/sitemap.xml
+
+# Crawl delay (in seconds)
+Crawl-delay: 1

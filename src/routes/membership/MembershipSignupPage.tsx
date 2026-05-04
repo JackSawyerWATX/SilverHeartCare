@@ -9,6 +9,8 @@ import { MembershipApplicationFormData } from "@/types/membershipApplication";
 import { NavBar } from "@/app/components/Header";
 import { Footer } from "@/app/components/Footer";
 import { Toaster } from "sonner";
+import SEO from "@/components/SEO";
+import { SEO_METADATA } from "@/utils/seoMetadata";
 
 export function MembershipSignupPage() {
   const handleSubmitSuccess = (data: MembershipApplicationFormData) => {
@@ -23,6 +25,7 @@ export function MembershipSignupPage() {
 
   return (
     <>
+      <SEO metadata={SEO_METADATA.membership} />
       <Toaster />
       <div
         className="flex flex-col min-h-screen"
