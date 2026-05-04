@@ -9,6 +9,8 @@ import { RideRequestFormData } from "@/types/rideRequest";
 import { NavBar } from "@/app/components/Header";
 import { Footer } from "@/app/components/Footer";
 import { Toaster } from "sonner";
+import SEO from "@/components/SEO";
+import { SEO_METADATA, generateServiceSchema } from "@/utils/seoMetadata";
 
 export function RideRequestPage() {
   const handleSubmitSuccess = (data: RideRequestFormData) => {
@@ -23,6 +25,10 @@ export function RideRequestPage() {
 
   return (
     <>
+      <SEO 
+        metadata={SEO_METADATA.rideRequest}
+        structuredData={generateServiceSchema()}
+      />
       <Toaster />
       <div
         className="flex flex-col min-h-screen"
