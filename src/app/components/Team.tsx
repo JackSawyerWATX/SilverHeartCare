@@ -19,8 +19,8 @@ const PAGE_TITLE_STYLES = {
   paddingBottom: "8px",
 };
 
-const MEMBER_IMAGE_HEIGHT = "h-96";
-const ADVISORY_IMAGE_HEIGHT = "h-120";
+const MEMBER_IMAGE_HEIGHT = "h-64 md:h-96";
+const ADVISORY_IMAGE_HEIGHT = "h-80 md:h-120";
 
 // Component Interfaces
 
@@ -80,16 +80,16 @@ function TeamMemberCard({
   imageHeight = MEMBER_IMAGE_HEIGHT 
 }: TeamMemberCardProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-20">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center mb-20">
       <div>
-        <h3 className="text-3xl font-bold text-gray-800 mb-2">{name}</h3>
-        <p className="text-xl font-semibold text-blue-600 mb-6">{role}</p>
-        <p className="text-gray-600 text-lg leading-relaxed">{bio}</p>
+        <h3 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">{name}</h3>
+        <p className="text-lg md:text-xl font-semibold text-blue-600 mb-6">{role}</p>
+        <p className="text-gray-600 text-base md:text-lg leading-relaxed">{bio}</p>
       </div>
       <div className="flex flex-col items-center justify-center">
         <div className={`bg-gray-300 ${imageHeight} rounded-lg flex items-center justify-center w-full overflow-hidden`}>
           {image ? (
-            <img src={image} alt={name} className="w-full h-full object-cover rounded-lg" />
+            <img src={image} alt={name} className="w-full h-full object-cover rounded-lg" loading="lazy" />
           ) : (
             <div className="flex items-center justify-center w-full h-full text-gray-500">
               <span>Photo placeholder</span>
@@ -111,7 +111,7 @@ function Advisory({
     <div className="mb-20">
       <div className={`bg-gray-300 ${photoHeight} rounded-lg flex items-center justify-center w-full overflow-hidden mb-12`}>
         {groupPhoto ? (
-          <img src={groupPhoto} alt="Advisory board group photo" className="w-full h-full object-cover rounded-lg" />
+          <img src={groupPhoto} alt="Advisory board group photo" className="w-full h-full object-cover rounded-lg" loading="lazy" />
         ) : (
           <div className="flex items-center justify-center w-full h-full text-gray-500">
             <span>Photo placeholder</span>

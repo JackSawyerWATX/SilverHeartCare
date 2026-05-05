@@ -1,6 +1,8 @@
 
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router";
+import { NavigationProvider } from "./context/NavigationContext";
+import { getEmailService } from "./services/EmailService";
 import App from "./routes/home/App.tsx";
 import AboutPage from "./routes/about/AboutPage.tsx";
 import TeamPage from "./routes/team/TeamPage.tsx";
@@ -13,20 +15,30 @@ import GalleryPage from "./routes/gallery/GalleryPage.tsx";
 import MediaPage from "./routes/media/MediaPage.tsx";
 import "./styles/index.css";
 
+// Initialize email service at app startup (single point of initialization)
+try {
+  const emailService = getEmailService();
+  emailService.initialize();
+} catch (error) {
+  console.warn("Email service initialization skipped:", error);
+}
+
 createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="/about" element={<AboutPage />} />
-      <Route path="/gallery" element={<GalleryPage />} />
-      <Route path="/media" element={<MediaPage />} />
-      <Route path="/team" element={<TeamPage />} />
-      <Route path="/contact" element={<ContactPage />} />
-      <Route path="/membership" element={<MembershipPage />} />
-      <Route path="/membership-signup" element={<MembershipSignupPage />} />
-      <Route path="/service-request" element={<ServiceRequestPage />} />
-      <Route path="/ride-request" element={<RideRequestPage />} />
-    </Routes>
+    <NavigationProvider>
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/gallery" element={<GalleryPage />} />
+        <Route path="/media" element={<MediaPage />} />
+        <Route path="/team" element={<TeamPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/membership" element={<MembershipPage />} />
+        <Route path="/membership-signup" element={<MembershipSignupPage />} />
+        <Route path="/service-request" element={<ServiceRequestPage />} />
+        <Route path="/ride-request" element={<RideRequestPage />} />
+      </Routes>
+    </NavigationProvider>
   </BrowserRouter>
 );
   
