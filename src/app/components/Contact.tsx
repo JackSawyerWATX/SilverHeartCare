@@ -1,20 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
-
-// Styles and Constraints
-
-const SECTION_BACKGROUND = "linear-gradient(to bottom, #d1d5db 0%, #d1d5db 10%, #f3f4f6 20%, #f3f4f6 100%)";
-
-const PAGE_TITLE_STYLES = {
-  fontFamily: "Arial Narrow, Roboto Condensed, sans-serif-condensed, sans-serif",
-  color: "#3b82f6",
-  textShadow: "-3px 4px 4px rgba(0, 0, 0, 0.3)",
-  borderBottom: "4px solid #3b82f6",
-  paddingBottom: "8px",
-};
+import { STYLES } from "@/styles/styleConstants";
+import { validateEmail, validatePhoneNumber, validateRequired } from "@/utils/validators";
+import { getEmailService } from "@/services/EmailService";
 
 // Component Interfaces
-
 interface FormData {
   name: string;
   phone: string;
@@ -33,14 +23,16 @@ interface PageTitleProps {
   title: string;
 }
 
-// Reusable Components
-
+/**
+ * PageTitle Component
+ * Single Responsibility: Title rendering only
+ */
 function PageTitle({ title }: PageTitleProps) {
   return (
     <div className="mb-16">
       <h2
         className="text-5xl md:text-6xl font-bold mb-8 inline-block"
-        style={PAGE_TITLE_STYLES}
+        style={STYLES.PAGE_TITLE}
       >
         {title}
       </h2>
@@ -48,6 +40,20 @@ function PageTitle({ title }: PageTitleProps) {
   );
 }
 
+interface FormInputProps {
+  label: string;
+  name: string;
+  type?: string;
+  placeholder: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: string;
+}
+
+/**
+ * FormInput Component
+ * Single Responsibility: Text input rendering only
+ */
 function FormInput({
   label,
   name,
@@ -56,15 +62,7 @@ function FormInput({
   value,
   onChange,
   error,
-}: {
-  label: string;
-  name: string;
-  type?: string;
-  placeholder: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  error?: string;
-}) {
+}: FormInputProps) {
   return (
     <div className="mb-6">
       <label htmlFor={name} className="block text-sm font-semibold text-gray-700 mb-2">
@@ -86,6 +84,19 @@ function FormInput({
   );
 }
 
+interface FormTextAreaProps {
+  label: string;
+  name: string;
+  placeholder: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  error?: string;
+}
+
+/**
+ * FormTextArea Component
+ * Single Responsibility: Textarea rendering only
+ */
 function FormTextArea({
   label,
   name,
@@ -93,14 +104,7 @@ function FormTextArea({
   value,
   onChange,
   error,
-}: {
-  label: string;
-  name: string;
-  placeholder: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  error?: string;
-}) {
+}: FormTextAreaProps) {
   return (
     <div className="mb-6">
       <label htmlFor={name} className="block text-sm font-semibold text-gray-700 mb-2">
@@ -122,7 +126,15 @@ function FormTextArea({
   );
 }
 
-function SubmitButton({ isSubmitting }: { isSubmitting: boolean }) {
+interface SubmitButtonProps {
+  isSubmitting: boolean;
+}
+
+/**
+ * SubmitButton Component
+ * Single Responsibility: Button rendering only
+ */
+function SubmitButton({ isSubmitting }: SubmitButtonProps) {
   return (
     <button
       type="submit"
@@ -134,46 +146,41 @@ function SubmitButton({ isSubmitting }: { isSubmitting: boolean }) {
   );
 }
 
-// Validation Utilities
-
-function validateEmail(email: string): boolean {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-}
-
-function validatePhoneNumber(phone: string): boolean {
-  const phoneRegex = /^[\d\s\-\(\)\+]+$/;
-  return phoneRegex.test(phone) && phone.replace(/\D/g, "").length >= 10;
-}
-
-function validateForm(formData: FormData): FormErrors {
+/**
+ * Validate contact form data
+ * Single Responsibility: Only validation logic
+ */
+function validateContactForm(formData: FormData): FormErrors {
   const errors: FormErrors = {};
 
-  if (!formData.name.trim()) {
+  if (!validateRequired(formData.name)) {
     errors.name = "Name is required";
   }
 
-  if (!formData.phone.trim()) {
+  if (!validateRequired(formData.phone)) {
     errors.phone = "Phone number is required";
   } else if (!validatePhoneNumber(formData.phone)) {
     errors.phone = "Please enter a valid phone number";
   }
 
-  if (!formData.email.trim()) {
+  if (!validateRequired(formData.email)) {
     errors.email = "Email is required";
   } else if (!validateEmail(formData.email)) {
     errors.email = "Please enter a valid email address";
   }
 
-  if (!formData.comments.trim()) {
+  if (!validateRequired(formData.comments)) {
     errors.comments = "Comments/message is required";
   }
 
   return errors;
 }
 
-// Main Component
-
+/**
+ * Contact Component
+ * Single Responsibility: Form rendering and coordination
+ * Dependencies: Uses services via dependency injection (email service)
+ */
 export function Contact() {
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -184,15 +191,6 @@ export function Contact() {
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // Initialize EmailJS on component mount
-  useEffect(() => {
-    if ((window as any).emailjs) {
-      (window as any).emailjs.init({
-        publicKey: "P04g8tzTaVqqub8L0",
-      });
-    }
-  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -215,7 +213,7 @@ export function Contact() {
     e.preventDefault();
 
     // Validate form
-    const validationErrors = validateForm(formData);
+    const validationErrors = validateContactForm(formData);
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -234,44 +232,37 @@ export function Contact() {
       // Show loading toast
       const toastId = toast.loading("Sending your message...");
 
-      // Send email using EmailJS
-      const result = await (window as any).emailjs.send(
-        "service_vlbveka",        // EmailJS service ID
-        "template_qqvs1g3",       // Same template as Service Request - only uses provided fields
-        {
+      // Send email using abstracted email service
+      const emailService = getEmailService();
+      const templateId = import.meta.env.VITE_EMAILJS_CONTACT_TEMPLATE_ID;
+
+      await emailService.send({
+        templateId,
+        variables: {
           from_name: formData.name,
           from_email: formData.email,
           phone: formData.phone,
           description: formData.comments,
-          to_email: "silverhearttest@gmail.com", // email address to receive messages
-        }
-      );
+          to_email: "silverhearttest@gmail.com",
+        },
+      });
 
-      // Check if email was sent successfully
-      if (result.status === 200) {
-        // Dismiss loading toast and show success toast
-        toast.dismiss(toastId);
-        toast.success("Message sent successfully! We'll get back to you soon.", {
-          duration: 5000,
-        });
-        
-        // Reset form only after successful send
-        setFormData({
-          name: "",
-          phone: "",
-          email: "",
-          comments: "",
-        });
-        setErrors({});
-      } else {
-        // Handle unexpected response
-        toast.dismiss(toastId);
-        toast.error("Failed to send message. Please try again.", {
-          duration: 5000,
-        });
-      }
+      // Dismiss loading toast and show success toast
+      toast.dismiss(toastId);
+      toast.success("Message sent successfully! We'll get back to you soon.", {
+        duration: 5000,
+      });
+
+      // Reset form only after successful send
+      setFormData({
+        name: "",
+        phone: "",
+        email: "",
+        comments: "",
+      });
+      setErrors({});
     } catch (error) {
-      // Handle network or other errors
+      // Handle errors
       console.error("Email send error:", error);
       toast.error(
         error instanceof Error
@@ -285,10 +276,7 @@ export function Contact() {
   };
 
   return (
-    <section
-      className="py-20"
-      style={{ background: SECTION_BACKGROUND }}
-    >
+    <section className="py-20" style={STYLES.SILVER_GRADIENT}>
       <div className="max-w-3xl mx-auto px-6">
         <PageTitle title="Contact Us" />
 

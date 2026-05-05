@@ -6,10 +6,10 @@ export function Hero() {
       id="hero"
       className="relative"
     >
-      <div className="max-w-7xl mx-auto px-6 py-16">
-        <div className="flex flex-col justify-center h-full min-h-[450px] relative z-20">
+      <div className="max-w-7xl mx-auto px-6 py-8 md:py-16">
+        <div className="flex flex-col justify-center h-full min-h-[300px] md:min-h-[450px] relative z-20">
           <h1
-            className="text-4xl md:text-5xl font-bold leading-tight"
+            className="text-2xl sm:text-4xl md:text-5xl font-bold leading-tight"
             style={{
               fontFamily:
                 "Arial Narrow, Roboto Condensed, sans-serif-condensed, sans-serif",
@@ -17,28 +17,28 @@ export function Hero() {
             }}
           >
             <span
-              className="text-gray-500 text-6xl"
+              className="text-gray-500 text-3xl sm:text-5xl md:text-6xl"
               style={{
                 WebkitTextFillColor: "transparent",
                 WebkitTextStroke: "2px #8A8A8A",
                 paintOrder: "stroke",
                 display: "block",
-                marginBottom: "15px",
+                marginBottom: "8px sm:mb-[15px]",
               }}
             >
               SILVER HEART CARE
             </span>
-            <span className="text-blue-500 text-6xl">IS COMPASSIONATE CARE</span>
+            <span className="text-blue-500 text-3xl sm:text-5xl md:text-6xl">IS COMPASSIONATE CARE</span>
           </h1>
         </div>
         {/* Glass Frame */}
         <div
-          className="absolute bottom-0 right-0 w-[870px] h-[620px] backdrop-blur-sm bg-white/5 border border-white/10 shadow-2xl z-0"
+          className="hidden md:block absolute bottom-0 right-0 w-[400px] h-[300px] md:w-[600px] md:h-[450px] lg:w-[870px] lg:h-[620px] backdrop-blur-sm bg-white/5 border border-white/10 shadow-2xl z-0"
           style={{ borderTopLeftRadius: "11rem" }}
         ></div>
 
         {/* Image */}
-        <div className="absolute bottom-0 right-0 w-[750px] h-[500px] z-10">
+        <div className="absolute bottom-0 right-0 w-[300px] h-[200px] md:w-[500px] md:h-[350px] lg:w-[750px] lg:h-[500px] z-10">
           <img
             src={gettingARide}
             alt="Senior getting a ride"
@@ -51,11 +51,11 @@ export function Hero() {
         </div>
 
         {/* Services Overlay */}
-        <div className="absolute bottom-0 left-0 right-0 bg-blue-900/75 py-7 z-30">
+        <div className="absolute bottom-0 left-0 right-0 bg-blue-900/75 py-4 md:py-7 z-30">
           <div className="max-w-7xl mx-auto px-6">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-              <div className="text-white text-lg leading-relaxed max-w-3xl">
-                <p>
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-8">
+              <div className="text-white text-sm sm:text-base md:text-lg leading-relaxed w-full md:max-w-3xl">
+                <p className="mb-2">
                   Our primary goal is to support seniors
                   with care that they need.
                 </p>
@@ -65,7 +65,7 @@ export function Hero() {
                   community.
                 </p>
               </div>
-              <button className="px-10 py-4 bg-yellow-400 text-blue-900 font-bold rounded-md border-2 border-transparent hover:bg-blue-900 hover:text-yellow-400 hover:border-yellow-400 transition text-lg whitespace-nowrap">
+              <button className="px-6 sm:px-8 md:px-10 py-2 sm:py-3 md:py-4 bg-yellow-400 text-blue-900 font-bold rounded-md border-2 border-transparent hover:bg-blue-900 hover:text-yellow-400 hover:border-yellow-400 transition text-sm sm:text-base md:text-lg whitespace-nowrap w-full sm:w-auto">
                 DONATE
               </button>
             </div>
