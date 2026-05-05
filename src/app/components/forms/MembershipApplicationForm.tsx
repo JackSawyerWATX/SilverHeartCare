@@ -4,7 +4,7 @@
  * Matches styling of ServiceRequestForm and RideRequestForm
  */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
@@ -39,6 +39,15 @@ export const MembershipApplicationForm: React.FC<MembershipApplicationFormProps>
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Initialize EmailJS on component mount
+  useEffect(() => {
+    if ((window as any).emailjs) {
+      (window as any).emailjs.init({
+        publicKey: "P04g8tzTaVqqub8L0",
+      });
+    }
+  }, []);
+
   const { control, handleSubmit, reset, formState: { errors } } = useForm<MembershipApplicationFormData>(
     {
       defaultValues: {
@@ -68,41 +77,39 @@ export const MembershipApplicationForm: React.FC<MembershipApplicationFormProps>
       // Prepare submission data
       const submissionData: MembershipApplicationFormData = formData;
 
-      // TODO: EMAILJS API INTEGRATION
-      // Replace with actual EmailJS service call
-      // This will send the membership application form data via email
-      // Documentation: https://www.emailjs.com/docs/
-      // import emailjs from '@emailjs/browser';
-      // await emailjs.send(
-      //   process.env.REACT_APP_EMAILJS_SERVICE_ID!,
-      //   process.env.REACT_APP_EMAILJS_TEMPLATE_ID!,
-      //   {
-      //     to_email: process.env.REACT_APP_NOTIFICATION_EMAIL!,
-      //     from_name: `${submissionData.firstName} ${submissionData.lastName}`,
-      //     from_email: submissionData.email,
-      //     phone: submissionData.phoneNumber,
-      //     grade: submissionData.grade,
-      //     age: submissionData.age,
-      //     home_address: submissionData.homeAddress,
-      //     school: submissionData.school,
-      //     why_interested: submissionData.whyInterested,
-      //     unique_about_you: submissionData.uniqueAboutYou,
-      //     leadership_interest: submissionData.leadershipInterest,
-      //     previous_experience: submissionData.previousExperienceAndExtracurriculars,
-      //   },
-      //   process.env.REACT_APP_EMAILJS_PUBLIC_KEY
-      // );
+      // Show loading toast
+      const toastId = toast.loading("Sending volunteer application...");
 
-      // Simulate API delay for now
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // Send email using EmailJS
+      const result = await (window as any).emailjs.send(
+        "service_vlbveka",        // EmailJS service ID
+        "template_4aet21w",       // Membership/Volunteer template ID
+        {
+          from_name: `${submissionData.firstName} ${submissionData.lastName}`,
+          from_email: submissionData.email,
+          phone: submissionData.phoneNumber,
+          grade: submissionData.grade,
+          age: submissionData.age,
+          home_address: submissionData.homeAddress,
+          school: submissionData.school,
+          why_interested: submissionData.whyInterested,
+          unique_about_you: submissionData.uniqueAboutYou,
+          leadership_interest: submissionData.leadershipInterest,
+          previous_experience: submissionData.previousExperienceAndExtracurriculars,
+          to_email: "silverhearttest@gmail.com",
+        }
+      );
 
-      const result: FormSubmissionResult = {
+      toast.dismiss(toastId);
+
+      const successMessage = "Volunteer application submitted successfully!";
+      const formResult: FormSubmissionResult = {
         success: true,
-        message: "Membership application submitted successfully!",
+        message: successMessage,
         data: submissionData,
       };
 
-      toast.success(result.message);
+      toast.success(successMessage);
       onSubmitSuccess?.(submissionData);
 
       // Reset form
@@ -114,6 +121,7 @@ export const MembershipApplicationForm: React.FC<MembershipApplicationFormProps>
         error instanceof Error ? error.message : "Failed to submit form";
       toast.error(errorMessage);
       onSubmitError?.(errorMessage);
+      console.error("Form submission error:", error);
     } finally {
       setIsSubmitting(false);
     }
