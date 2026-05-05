@@ -57,7 +57,7 @@ function ImageCard({ src, alt, caption, containerHeight = "h-96" }: ImageCardPro
   return (
     <div className="flex flex-col items-center justify-center">
       <div className={`bg-gray-300 ${containerHeight} rounded-lg flex items-center justify-center w-full`}>
-        <img src={src} alt={alt} className="w-full h-full object-cover rounded-lg" />
+        <img src={src} alt={alt} className="w-full h-full object-cover rounded-lg" loading="lazy" />
       </div>
       <p className="text-center text-gray-600 text-md mt-3">{caption}</p>
     </div>
@@ -172,7 +172,7 @@ function EstablishmentsSection({ establishments }: { establishments: string[] })
 function KrogerRewardsSection() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mt-12">
-      <img src={kroger} alt="Kroger Community Rewards" className="w-64 h-40 object-contain rounded-lg"/>
+      <img src={kroger} alt="Kroger Community Rewards" className="w-64 h-40 object-contain rounded-lg" loading="lazy"/>
       <div>
         <h3 className="text-3xl font-bold text-gray-800">Members of The Kroger Community Rewards Program</h3>
       </div>

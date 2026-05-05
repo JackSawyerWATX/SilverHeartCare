@@ -39,6 +39,7 @@ export function NavBar() {
               src={logo}
               alt="Silver Heart Care Logo"
               className="h-24 w-auto relative z-10"
+              loading="lazy"
             />
           </Link>
         </div>

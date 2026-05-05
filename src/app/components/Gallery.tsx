@@ -327,6 +327,7 @@ const Gallery = ({
                     className="embla__slide__img embla__parallax__img"
                     src={imageSrc(index)}
                     alt={`Slide ${index + 1}`}
+                    loading="lazy"
                   />
                 </div>
               </div>

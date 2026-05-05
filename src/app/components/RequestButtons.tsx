@@ -22,6 +22,7 @@ export function RequestButtons() {
           alt="Senior getting a ride"
           className="w-full h-full object-cover shadow-lg"
           style={{ borderBottomLeftRadius: "9rem" }}
+          loading="lazy"
         />
       </div>
 
@@ -39,6 +40,7 @@ export function RequestButtons() {
                 src={wheelsOfWellness}
                 alt="Wheels of Wellness"
                 className="w-[155px] sm:w-[182px] md:w-[286px] h-auto"
+                loading="lazy"
               />
             </div>
             <div className="flex flex-col items-center gap-4 flex-1 min-w-[140px] max-w-[210px] ml-[41px] sm:ml-[49px] md:ml-0">
@@ -52,6 +54,7 @@ export function RequestButtons() {
                 src={shcValues}
                 alt="SHC Values"
                 className="w-[155px] sm:w-[182px] md:w-[286px] h-auto"
+                loading="lazy"
               />
             </div>
           </div>
