@@ -216,21 +216,21 @@ const BOARD_MEMBERS: TeamMember[] = [
 ];
 
 const ADVISORY_BOARD = [
-  "Advisor 1",
-  "Advisor 2",
-  "Advisor 3",
-  "Advisor 4",
-  "Advisor 5",
-  "Advisor 6",
-  "Advisor 7",
-  "Advisor 8",
-  "Advisor 9",
-  "Advisor 10",
-  "Advisor 11",
-  "Advisor 12",
-  "Advisor 13",
-  "Advisor 14",
-  "Advisor 15",
+  "Mukulesh Shah",
+  "Upma Shah",
+  "Raghav Singh",
+  "Darlene McCracken",
+  "Don McCracken",
+  "Devika Singh",
+  "Meenakshi Singh",
+  "Carol McCutcheon",
+  "Sanjay Singh",
+  "Ankur Sanghi",
+  "Renu Narang",
+  "Dhara Goel",
+  "Sharad Gupta",
+  "Barkha Gupta",
+  "Boba Nikolic",
 ];
 
 // Main Componenets
