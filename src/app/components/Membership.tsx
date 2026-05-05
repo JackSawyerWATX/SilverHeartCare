@@ -67,17 +67,17 @@ export function Membership() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Photo 1 */}
             <div>
-              <img src={BrookdalePhoto} alt="Brookdale Member Photo" className="h-80 rounded-lg object-cover w-full" />
+              <img src={BrookdalePhoto} alt="Brookdale Member Photo" className="h-80 rounded-lg object-cover w-full" loading="lazy" />
               <p className="text-gray-700 text-center font-semibold mt-3">Volunteers at Brookdale Senior Living.</p>
             </div>
             {/* Photo 2 */}
             <div>
-              <img src={RaceDay} alt="Charity Run Photo" className="h-80 rounded-lg object-cover w-full" />
+              <img src={RaceDay} alt="Charity Run Photo" className="h-80 rounded-lg object-cover w-full" loading="lazy" />
               <p className="text-gray-700 text-center font-semibold mt-3">Charity Run</p>
             </div>
             {/* Photo 3 */}
             <div>
-              <img src={CanDrive} alt="Food Drive Photo" className="h-80 rounded-lg object-cover w-full" />
+              <img src={CanDrive} alt="Food Drive Photo" className="h-80 rounded-lg object-cover w-full" loading="lazy" />
               <p className="text-gray-700 text-center font-semibold mt-3">Non perishable goods food drive</p>
             </div>
           </div>
