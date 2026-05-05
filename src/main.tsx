@@ -2,6 +2,7 @@
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router";
 import { NavigationProvider } from "./context/NavigationContext";
+import { ScrollToTop } from "./components/ScrollToTop";
 import { getEmailService } from "./services/EmailService";
 import App from "./routes/home/App.tsx";
 import AboutPage from "./routes/about/AboutPage.tsx";
@@ -26,6 +27,7 @@ try {
 createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
     <NavigationProvider>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/about" element={<AboutPage />} />

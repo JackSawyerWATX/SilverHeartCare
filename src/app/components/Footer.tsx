@@ -24,19 +24,19 @@ export function Footer() {
             </a>
             <div className="flex gap-2 md:gap-4 p-2 md:p-4">
               <a
-                href="#facebook"
+                href="https://www.facebook.com/silverheartcares/"
                 className="w-8 md:w-10 h-8 md:h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-blue-600 transition text-xs md:text-base"
               >
                 <span className="font-bold">f</span>
               </a>
               <a
-                href="#twitter"
+                href="https://x.com/SilverHeartCare"
                 className="w-8 md:w-10 h-8 md:h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-blue-400 transition text-xs md:text-base"
               >
                 <span className="font-bold">𝕏</span>
               </a>
               <a
-                href="#linkedin"
+                href="https://www.linkedin.com/company/silver-heart-care-inc/posts/?feedView=all"
                 className="w-8 md:w-10 h-8 md:h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-blue-700 transition text-xs font-bold"
               >
                 <span className="font-bold text-xs">in</span>
@@ -49,19 +49,19 @@ export function Footer() {
             </h3>
             <ul className="space-y-2 md:space-y-3 text-xs md:text-sm">
               <li>
-                <a href="#mission" className="hover:text-white transition">
+                <Link to="/about" className="hover:text-white transition">
                   Our Mission
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#services" className="hover:text-white transition">
-                  Services
-                </a>
+                <Link to="/service-request" className="hover:text-white transition">
+                  Request a Service
+                </Link>
               </li>
               <li>
-                <a href="#team" className="hover:text-white transition">
+                <Link to="/team" className="hover:text-white transition">
                   Our Team
-                </a>
+                </Link>
               </li>
               <li>
                 <Link to="/membership" className="hover:text-white transition">
@@ -69,7 +69,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="#impact" className="hover:text-white transition">
+                <a href="https://runsignup.com/Race/TX/SugarLand/SHCCharityRun" target="_blank" className="hover:text-white transition">
                   Charity Run
                 </a>
               </li>
@@ -82,19 +82,21 @@ export function Footer() {
             <ul className="space-y-2 md:space-y-3 text-xs md:text-sm">
               <li className="flex items-center gap-2">
                 <Phone className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
-                <a href="#phone" className="hover:text-white transition">
+                <a href="tel:(281) 536-5498" className="hover:text-white transition">
                   (281) 536-5498
                 </a>
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
-                <a href="#email" className="hover:text-white transition break-all">
+                <a href="mailto:services@silverheartcare.org" className="hover:text-white transition break-all">
                   services@silverheartcare.org
                 </a>
               </li>
               <li className="flex items-center gap-2">
                 <MapPin className="w-3 h-3 md:w-4 md:h-4 flex-shrink-0" />
-                <a href="#location" className="hover:text-white transition">
+                <a href="https://www.google.com/maps/place/Sugar+Land,+TX/@29.5873222,-95.6807002,20865m/data=!3m2!1e3!4b1!4m6!3m5!1s0x8640de10e11b70cb:0x2779e11b2263d8cc!8m2!3d29.5984434!4d-95.6225521!16zL20vMDEwMWZ2?authuser=0&entry=ttu&g_ep=EgoyMDI2MDUwMi4wIKXMDSoASAFQAw%3D%3D" 
+                  target="_blank"
+                  className="hover:text-white transition">
                   Sugar Land, TX
                 </a>
               </li>
