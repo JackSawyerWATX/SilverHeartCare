@@ -28,8 +28,8 @@ frontend:
   artifacts:
     baseDirectory: dist
     files:
-      - '**/*'
+      - "**/*"
   cache:
     paths:
-      - 'node_modules/**/*'
-      - '.pnpm-store/**/*'
+      - "node_modules/**/*"
+      - ".pnpm-store/**/*"
