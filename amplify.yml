@@ -8,12 +8,20 @@ frontend:
         - npm install -g pnpm
         - echo "pnpm version:"
         - pnpm --version
+        - echo "Current directory:"
+        - pwd
+        - echo "Directory contents:"
+        - ls -la
     build:
       commands:
         - echo "Installing dependencies..."
-        - pnpm install
-        - echo "Building application..."
-        - pnpm run build
+        - pnpm install || { echo "ERROR: pnpm install failed"; exit 1; }
+        - echo "Build started..."
+        - pnpm run build || { echo "ERROR: pnpm run build failed"; exit 1; }
+        - echo "Build completed. Checking dist directory..."
+        - ls -la dist/ || { echo "ERROR: dist directory not found"; exit 1; }
+        - echo "dist/ contents:"
+        - ls -la dist/
     postBuild:
       commands:
         - echo "Build completed successfully"
