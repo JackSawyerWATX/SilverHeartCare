@@ -1,0 +1,27 @@
+﻿version: 1
+
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - echo "Installing pnpm..."
+        - npm install -g pnpm
+        - echo "pnpm version:"
+        - pnpm --version
+    build:
+      commands:
+        - echo "Installing dependencies..."
+        - pnpm install
+        - echo "Building application..."
+        - pnpm run build
+    postBuild:
+      commands:
+        - echo "Build completed successfully"
+  artifacts:
+    baseDirectory: dist
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - 'node_modules/**/*'
+      - '.pnpm-store/**/*'
