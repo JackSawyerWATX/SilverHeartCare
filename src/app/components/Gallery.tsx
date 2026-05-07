@@ -125,10 +125,12 @@ function useDotNavigation(emblaApi: EmblaCarouselType | undefined): DotNavigatio
   )
 
   const initializeSnaps = useCallback((api: EmblaCarouselType) => {
+    if (!api.scrollSnapList) return
     setScrollSnaps(api.scrollSnapList())
   }, [])
 
   const updateSelectedIndex = useCallback((api: EmblaCarouselType) => {
+    if (!api.scrollProgress || !api.scrollSnapList) return
     const scrollProgress = api.scrollProgress()
     const snaps = api.scrollSnapList()
     let selectedIndex = 0
@@ -168,6 +170,7 @@ function calculateParallaxTranslate(
   slideIndex: number,
   tweenFactor: number
 ): number {
+  if (!api.scrollSnapList) return 0
   const snaps = api.scrollSnapList()
   const snap = snaps[slideIndex]
   let diffToTarget = scrollProgress
@@ -199,17 +202,20 @@ function useParallaxEffect(emblaApi: EmblaCarouselType | undefined): CarouselEve
   const tweenNodes = useRef<HTMLElement[]>([])
 
   const initializeTweenNodes = useCallback((api: EmblaCarouselType) => {
+    if (!api.slideNodes) return
     tweenNodes.current = api.slideNodes().map(
       (node) => node.querySelector('.embla__parallax__layer') as HTMLElement
     )
   }, [])
 
   const calculateTweenFactor = useCallback((api: EmblaCarouselType) => {
+    if (!api.scrollSnapList) return
     tweenFactor.current = CAROUSEL_PARALLAX_TWEEN_FACTOR_BASE * api.scrollSnapList().length
   }, [])
 
   const applyParallaxTransform: CarouselEventListener = useCallback(
     (api: EmblaCarouselType, event?: EmblaEventType) => {
+      if (!api.internalEngine || !api.scrollProgress || !api.slidesInView) return
       const engine = api.internalEngine()
       const scrollProgress = api.scrollProgress()
       const slidesInView = api.slidesInView()
