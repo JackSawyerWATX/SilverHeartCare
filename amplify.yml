@@ -14,6 +14,6 @@ frontend:
   cache:
     paths:
       - node_modules/**/*
-  errorPages:
-    - code: 404
-      page: /index.html
+  rewrites:
+    - source: <^(?!.*\.).*$>
+      target: /index.html
