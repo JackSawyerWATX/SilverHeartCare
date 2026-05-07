@@ -17,5 +17,6 @@ frontend:
 
 hosting:
   rewrites:
-    - source: '/<^[^.]+$|\.(?!html?$)([^.]+)$>/'
+    - source: /<.*>/
       target: /index.html
+      status: 404-200
