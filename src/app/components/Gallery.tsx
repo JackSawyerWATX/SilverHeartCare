@@ -89,9 +89,8 @@ function useCarouselNavigation(
   }, [emblaApi])
 
   const updateButtonState = useCallback((api: EmblaCarouselType) => {
-    if (!api.canScrollPrev || !api.canScrollNext) return
-    setPrevBtnDisabled(!api.canScrollPrev())
-    setNextBtnDisabled(!api.canScrollNext())
+    setPrevBtnDisabled(!api.canScrollPrev?.())
+    setNextBtnDisabled(!api.canScrollNext?.())
   }, [])
 
   useEffect(() => {
@@ -125,14 +124,13 @@ function useDotNavigation(emblaApi: EmblaCarouselType | undefined): DotNavigatio
   )
 
   const initializeSnaps = useCallback((api: EmblaCarouselType) => {
-    if (!api.scrollSnapList) return
-    setScrollSnaps(api.scrollSnapList())
+    setScrollSnaps(api.scrollSnapList?.() || [])
   }, [])
 
   const updateSelectedIndex = useCallback((api: EmblaCarouselType) => {
-    if (!api.scrollProgress || !api.scrollSnapList) return
-    const scrollProgress = api.scrollProgress()
-    const snaps = api.scrollSnapList()
+    const scrollProgress = api.scrollProgress?.()
+    const snaps = api.scrollSnapList?.()
+    if (scrollProgress === undefined || !snaps) return
     let selectedIndex = 0
     
     for (let i = 0; i < snaps.length; i++) {
@@ -170,8 +168,8 @@ function calculateParallaxTranslate(
   slideIndex: number,
   tweenFactor: number
 ): number {
-  if (!api.scrollSnapList) return 0
-  const snaps = api.scrollSnapList()
+  const snaps = api.scrollSnapList?.()
+  if (!snaps) return 0
   const snap = snaps[slideIndex]
   let diffToTarget = scrollProgress
 
@@ -202,23 +200,25 @@ function useParallaxEffect(emblaApi: EmblaCarouselType | undefined): CarouselEve
   const tweenNodes = useRef<HTMLElement[]>([])
 
   const initializeTweenNodes = useCallback((api: EmblaCarouselType) => {
-    if (!api.slideNodes) return
-    tweenNodes.current = api.slideNodes().map(
-      (node) => node.querySelector('.embla__parallax__layer') as HTMLElement
-    )
+    const nodes = api.slideNodes?.()
+    if (nodes) {
+      tweenNodes.current = nodes.map(
+        (node) => node.querySelector('.embla__parallax__layer') as HTMLElement
+      )
+    }
   }, [])
 
   const calculateTweenFactor = useCallback((api: EmblaCarouselType) => {
-    if (!api.scrollSnapList) return
-    tweenFactor.current = CAROUSEL_PARALLAX_TWEEN_FACTOR_BASE * api.scrollSnapList().length
+    const snaps = api.scrollSnapList?.()
+    if (snaps) tweenFactor.current = CAROUSEL_PARALLAX_TWEEN_FACTOR_BASE * snaps.length
   }, [])
 
   const applyParallaxTransform: CarouselEventListener = useCallback(
     (api: EmblaCarouselType, event?: EmblaEventType) => {
-      if (!api.internalEngine || !api.scrollProgress || !api.slidesInView) return
-      const engine = api.internalEngine()
-      const scrollProgress = api.scrollProgress()
-      const slidesInView = api.slidesInView()
+      const engine = api.internalEngine?.()
+      const scrollProgress = api.scrollProgress?.()
+      const slidesInView = api.slidesInView?.()
+      if (!engine || scrollProgress === undefined || !slidesInView) return
       const isScrollEvent = event === CAROUSEL_EVENTS.SCROLL
 
       tweenNodes.current.forEach((tweenNode, slideIndex) => {
