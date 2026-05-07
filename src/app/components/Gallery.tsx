@@ -80,26 +80,36 @@ function useCarouselNavigation(
 
   const onPrevButtonClick = useCallback(() => {
     if (!emblaApi) return
-    if (typeof emblaApi.scrollPrev === 'function') {
-      emblaApi.scrollPrev()
-    } else if (typeof (emblaApi as any).scrollTo === 'function') {
-      const current = (emblaApi as any).selectedScrollSnap?.()
-      if (current !== undefined && current > 0) {
-        (emblaApi as any).scrollTo(current - 1)
+    try {
+      const current = typeof (emblaApi as any).selectedScrollSnap === 'function' 
+        ? (emblaApi as any).selectedScrollSnap()
+        : 0
+      console.log('[Gallery] Prev button clicked, current index:', current)
+      if (current > 0) {
+        console.log('[Gallery] Scrolling to index:', current - 1)
+        emblaApi.scrollTo(current - 1)
       }
+    } catch (e) {
+      console.error('[Gallery] Error in prev button click:', e)
     }
   }, [emblaApi])
 
   const onNextButtonClick = useCallback(() => {
     if (!emblaApi) return
-    if (typeof emblaApi.scrollNext === 'function') {
-      emblaApi.scrollNext()
-    } else if (typeof (emblaApi as any).scrollTo === 'function') {
-      const current = (emblaApi as any).selectedScrollSnap?.()
-      const snaps = (emblaApi as any).scrollSnapList?.()
-      if (current !== undefined && snaps && current < snaps.length - 1) {
-        (emblaApi as any).scrollTo(current + 1)
+    try {
+      const current = typeof (emblaApi as any).selectedScrollSnap === 'function' 
+        ? (emblaApi as any).selectedScrollSnap()
+        : 0
+      const snaps = typeof (emblaApi as any).scrollSnapList === 'function'
+        ? (emblaApi as any).scrollSnapList()
+        : []
+      console.log('[Gallery] Next button clicked, current index:', current, 'max:', snaps.length - 1)
+      if (current < snaps.length - 1) {
+        console.log('[Gallery] Scrolling to index:', current + 1)
+        emblaApi.scrollTo(current + 1)
       }
+    } catch (e) {
+      console.error('[Gallery] Error in next button click:', e)
     }
   }, [emblaApi])
 
@@ -127,6 +137,16 @@ function useCarouselNavigation(
 
   useEffect(() => {
     if (!emblaApi) return
+    
+    // Debug logging
+    console.log('[Gallery] emblaApi initialized:', {
+      hasScrollTo: typeof emblaApi.scrollTo === 'function',
+      hasSelectedScrollSnap: typeof (emblaApi as any).selectedScrollSnap === 'function',
+      hasScrollSnapList: typeof (emblaApi as any).scrollSnapList === 'function',
+      hasCanGoToPrev: typeof (emblaApi as any).canGoToPrev === 'function',
+      hasCanGoToNext: typeof (emblaApi as any).canGoToNext === 'function',
+      apiKeys: Object.keys(emblaApi).sort()
+    })
     
     updateButtonState(emblaApi)
     emblaApi
