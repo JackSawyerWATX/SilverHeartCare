@@ -17,5 +17,5 @@ frontend:
 
 hosting:
   rewrites:
-    - source: <^(?!.*\.).*$>
+    - source: '/<^[^.]+$|\.(?!html?$)([^.]+)$>/'
       target: /index.html
