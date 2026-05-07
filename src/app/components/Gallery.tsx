@@ -81,13 +81,29 @@ function useCarouselNavigation(
   const onPrevButtonClick = useCallback(() => {
     if (!emblaApi) return
     try {
-      const current = typeof (emblaApi as any).selectedScrollSnap === 'function' 
-        ? (emblaApi as any).selectedScrollSnap()
-        : 0
-      console.log('[Gallery] Prev button clicked, current index:', current)
+      // Try different ways to get current index and scroll
+      let current = 0
+      if (typeof (emblaApi as any).selectedScrollSnap === 'function') {
+        current = (emblaApi as any).selectedScrollSnap()
+      } else if (typeof (emblaApi as any).index === 'function') {
+        current = (emblaApi as any).index()
+      } else if (typeof (emblaApi as any).scrollProgress === 'function') {
+        current = Math.round((emblaApi as any).scrollProgress() * 10) // rough estimate
+      }
+      
+      console.log('[Gallery] Prev clicked, current:', current)
+      
       if (current > 0) {
-        console.log('[Gallery] Scrolling to index:', current - 1)
-        emblaApi.scrollTo(current - 1)
+        // Try different scroll methods
+        if (typeof (emblaApi as any).scrollTo === 'function') {
+          (emblaApi as any).scrollTo(current - 1)
+        } else if (typeof (emblaApi as any).select === 'function') {
+          (emblaApi as any).select(current - 1)
+        } else if (typeof (emblaApi as any).to === 'function') {
+          (emblaApi as any).to(current - 1)
+        } else {
+          console.warn('[Gallery] No scroll method found!')
+        }
       }
     } catch (e) {
       console.error('[Gallery] Error in prev button click:', e)
@@ -97,16 +113,36 @@ function useCarouselNavigation(
   const onNextButtonClick = useCallback(() => {
     if (!emblaApi) return
     try {
-      const current = typeof (emblaApi as any).selectedScrollSnap === 'function' 
-        ? (emblaApi as any).selectedScrollSnap()
-        : 0
-      const snaps = typeof (emblaApi as any).scrollSnapList === 'function'
-        ? (emblaApi as any).scrollSnapList()
-        : []
-      console.log('[Gallery] Next button clicked, current index:', current, 'max:', snaps.length - 1)
-      if (current < snaps.length - 1) {
-        console.log('[Gallery] Scrolling to index:', current + 1)
-        emblaApi.scrollTo(current + 1)
+      // Try different ways to get current index and scroll
+      let current = 0
+      if (typeof (emblaApi as any).selectedScrollSnap === 'function') {
+        current = (emblaApi as any).selectedScrollSnap()
+      } else if (typeof (emblaApi as any).index === 'function') {
+        current = (emblaApi as any).index()
+      } else if (typeof (emblaApi as any).scrollProgress === 'function') {
+        current = Math.round((emblaApi as any).scrollProgress() * 10)
+      }
+      
+      let maxIndex = 3 // Default to 4 slides (0-3)
+      if (typeof (emblaApi as any).scrollSnapList === 'function') {
+        maxIndex = (emblaApi as any).scrollSnapList().length - 1
+      } else if (typeof (emblaApi as any).snapList === 'function') {
+        maxIndex = (emblaApi as any).snapList().length - 1
+      }
+      
+      console.log('[Gallery] Next clicked, current:', current, 'maxIndex:', maxIndex)
+      
+      if (current < maxIndex) {
+        // Try different scroll methods
+        if (typeof (emblaApi as any).scrollTo === 'function') {
+          (emblaApi as any).scrollTo(current + 1)
+        } else if (typeof (emblaApi as any).select === 'function') {
+          (emblaApi as any).select(current + 1)
+        } else if (typeof (emblaApi as any).to === 'function') {
+          (emblaApi as any).to(current + 1)
+        } else {
+          console.warn('[Gallery] No scroll method found!')
+        }
       }
     } catch (e) {
       console.error('[Gallery] Error in next button click:', e)
@@ -138,15 +174,10 @@ function useCarouselNavigation(
   useEffect(() => {
     if (!emblaApi) return
     
-    // Debug logging
-    console.log('[Gallery] emblaApi initialized:', {
-      hasScrollTo: typeof emblaApi.scrollTo === 'function',
-      hasSelectedScrollSnap: typeof (emblaApi as any).selectedScrollSnap === 'function',
-      hasScrollSnapList: typeof (emblaApi as any).scrollSnapList === 'function',
-      hasCanGoToPrev: typeof (emblaApi as any).canGoToPrev === 'function',
-      hasCanGoToNext: typeof (emblaApi as any).canGoToNext === 'function',
-      apiKeys: Object.keys(emblaApi).sort()
-    })
+    // Debug logging - show all available methods
+    const allMethods = Object.keys(emblaApi).filter(key => typeof (emblaApi as any)[key] === 'function')
+    console.log('[Gallery] Available methods:', allMethods)
+    console.log('[Gallery] Full API:', emblaApi)
     
     updateButtonState(emblaApi)
     emblaApi
