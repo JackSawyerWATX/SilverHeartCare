@@ -15,5 +15,5 @@ frontend:
     paths:
       - node_modules/**/*
   rewrites:
-    - source: <^[^.]+$|\.(?!js$|css$|gif$|jpg$|jpeg$|png$|svg$|webp$|ico$|json$)([^.]+)$>
+    - source: /<^[^.]+$|\.(?!js$|css$|gif$|jpg$|jpeg$|png$|svg$|webp$|ico$|json$)([^.]+)$>/
       target: /index.html
