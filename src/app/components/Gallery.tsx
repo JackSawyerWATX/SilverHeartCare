@@ -90,10 +90,15 @@ function useCarouselNavigation(
 
   const updateButtonState = useCallback((api: EmblaCarouselType) => {
     try {
-      setPrevBtnDisabled(typeof api.canScrollPrev === 'function' ? !api.canScrollPrev() : true)
-      setNextBtnDisabled(typeof api.canScrollNext === 'function' ? !api.canScrollNext() : true)
+      const canPrev = typeof api.canScrollPrev === 'function' ? api.canScrollPrev() : false
+      const canNext = typeof api.canScrollNext === 'function' ? api.canScrollNext() : false
+      if (typeof api.canScrollPrev !== 'function') {
+        console.warn('[Gallery] canScrollPrev is not a function', api)
+      }
+      setPrevBtnDisabled(!canPrev)
+      setNextBtnDisabled(!canNext)
     } catch (e) {
-      // Silently handle API initialization issues
+      console.error('[Gallery] Error updating button state:', e)
       setPrevBtnDisabled(true)
       setNextBtnDisabled(true)
     }
