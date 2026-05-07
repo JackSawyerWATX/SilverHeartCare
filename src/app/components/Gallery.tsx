@@ -252,7 +252,7 @@ function useParallaxEffect(emblaApi: EmblaCarouselType | undefined): CarouselEve
         : undefined
       if (nodes) {
         tweenNodes.current = nodes.map(
-          (node) => node.querySelector('.embla__parallax__layer') as HTMLElement
+          (node: HTMLElement) => node.querySelector('.embla__parallax__layer') as HTMLElement
         )
       }
     } catch (e) {
