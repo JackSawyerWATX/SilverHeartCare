@@ -17,5 +17,6 @@ frontend:
 
 hosting:
   rewrites:
-    - source: /<^(?!.*\.).*$>/
+    - source: </^(?!.*\.(?:css|js|gif|jpg|jpeg|png|svg|ico|webp|eot|otf|ttf|woff|woff2)$).*$/>
       target: /index.html
+      status: 200
