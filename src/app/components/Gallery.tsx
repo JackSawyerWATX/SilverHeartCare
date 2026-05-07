@@ -89,6 +89,7 @@ function useCarouselNavigation(
   }, [emblaApi])
 
   const updateButtonState = useCallback((api: EmblaCarouselType) => {
+    if (!api.canScrollPrev || !api.canScrollNext) return
     setPrevBtnDisabled(!api.canScrollPrev())
     setNextBtnDisabled(!api.canScrollNext())
   }, [])
