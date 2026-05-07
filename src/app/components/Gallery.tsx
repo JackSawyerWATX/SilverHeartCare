@@ -80,21 +80,44 @@ function useCarouselNavigation(
 
   const onPrevButtonClick = useCallback(() => {
     if (!emblaApi) return
-    emblaApi.scrollPrev()
+    // Try both old and new scroll method names
+    if (typeof emblaApi.scrollPrev === 'function') {
+      emblaApi.scrollPrev()
+    } else if (typeof (emblaApi as any).scrollTo === 'function') {
+      const currentSnap = (emblaApi as any).selectedScrollSnap?.()
+      if (currentSnap !== undefined && currentSnap > 0) {
+        (emblaApi as any).scrollTo(currentSnap - 1)
+      }
+    }
   }, [emblaApi])
 
   const onNextButtonClick = useCallback(() => {
     if (!emblaApi) return
-    emblaApi.scrollNext()
+    // Try both old and new scroll method names
+    if (typeof emblaApi.scrollNext === 'function') {
+      emblaApi.scrollNext()
+    } else if (typeof (emblaApi as any).scrollTo === 'function') {
+      const currentSnap = (emblaApi as any).selectedScrollSnap?.()
+      const snapList = (emblaApi as any).scrollSnapList?.()
+      if (currentSnap !== undefined && snapList && currentSnap < snapList.length - 1) {
+        (emblaApi as any).scrollTo(currentSnap + 1)
+      }
+    }
   }, [emblaApi])
 
   const updateButtonState = useCallback((api: EmblaCarouselType) => {
     try {
-      const canPrev = typeof api.canScrollPrev === 'function' ? api.canScrollPrev() : false
-      const canNext = typeof api.canScrollNext === 'function' ? api.canScrollNext() : false
-      if (typeof api.canScrollPrev !== 'function') {
-        console.warn('[Gallery] canScrollPrev is not a function', api)
-      }
+      // Try both old and new API names for compatibility
+      const canPrev = typeof api.canScrollPrev === 'function' 
+        ? api.canScrollPrev() 
+        : typeof (api as any).canGoPrev === 'function'
+        ? (api as any).canGoPrev()
+        : false
+      const canNext = typeof api.canScrollNext === 'function'
+        ? api.canScrollNext()
+        : typeof (api as any).canGoNext === 'function'
+        ? (api as any).canGoNext()
+        : false
       setPrevBtnDisabled(!canPrev)
       setNextBtnDisabled(!canNext)
     } catch (e) {
