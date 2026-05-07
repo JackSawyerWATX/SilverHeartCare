@@ -14,3 +14,9 @@ frontend:
   cache:
     paths:
       - node_modules/**/*
+
+hosting:
+  baseDirectory: dist
+  rewrites:
+    - source: '</^[^.]+$|\.(?!css|js|gif|jpg|jpeg|png|svg|ico|webp|eot|otf|ttf|woff|woff2|json)$/>'
+      target: /index.html
