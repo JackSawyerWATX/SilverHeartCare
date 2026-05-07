@@ -3,7 +3,7 @@ frontend:
   phases:
     preBuild:
       commands:
-        - npm install
+        - npm ci
     build:
       commands:
         - npm run build
@@ -14,10 +14,3 @@ frontend:
   cache:
     paths:
       - node_modules/**/*
-
-hosting:
-  baseDirectory: dist
-  rewrites:
-    - source: <^[^.]+$|\.(?!css|js|gif|jpg|jpeg|png|svg|ico|webp|eot|otf|ttf|woff|woff2)$>
-      target: /index.html
-      status: 200
