@@ -81,29 +81,12 @@ function useCarouselNavigation(
   const onPrevButtonClick = useCallback(() => {
     if (!emblaApi) return
     try {
-      // Try different ways to get current index and scroll
-      let current = 0
-      if (typeof (emblaApi as any).selectedScrollSnap === 'function') {
-        current = (emblaApi as any).selectedScrollSnap()
-      } else if (typeof (emblaApi as any).index === 'function') {
-        current = (emblaApi as any).index()
-      } else if (typeof (emblaApi as any).scrollProgress === 'function') {
-        current = Math.round((emblaApi as any).scrollProgress() * 10) // rough estimate
-      }
-      
-      console.log('[Gallery] Prev clicked, current:', current)
-      
-      if (current > 0) {
-        // Try different scroll methods
-        if (typeof (emblaApi as any).scrollTo === 'function') {
-          (emblaApi as any).scrollTo(current - 1)
-        } else if (typeof (emblaApi as any).select === 'function') {
-          (emblaApi as any).select(current - 1)
-        } else if (typeof (emblaApi as any).to === 'function') {
-          (emblaApi as any).to(current - 1)
-        } else {
-          console.warn('[Gallery] No scroll method found!')
-        }
+      // Use goToPrev() - Embla v9 method
+      if (typeof (emblaApi as any).goToPrev === 'function') {
+        (emblaApi as any).goToPrev()
+        console.log('[Gallery] Called goToPrev()')
+      } else {
+        console.warn('[Gallery] goToPrev method not found')
       }
     } catch (e) {
       console.error('[Gallery] Error in prev button click:', e)
@@ -113,36 +96,12 @@ function useCarouselNavigation(
   const onNextButtonClick = useCallback(() => {
     if (!emblaApi) return
     try {
-      // Try different ways to get current index and scroll
-      let current = 0
-      if (typeof (emblaApi as any).selectedScrollSnap === 'function') {
-        current = (emblaApi as any).selectedScrollSnap()
-      } else if (typeof (emblaApi as any).index === 'function') {
-        current = (emblaApi as any).index()
-      } else if (typeof (emblaApi as any).scrollProgress === 'function') {
-        current = Math.round((emblaApi as any).scrollProgress() * 10)
-      }
-      
-      let maxIndex = 3 // Default to 4 slides (0-3)
-      if (typeof (emblaApi as any).scrollSnapList === 'function') {
-        maxIndex = (emblaApi as any).scrollSnapList().length - 1
-      } else if (typeof (emblaApi as any).snapList === 'function') {
-        maxIndex = (emblaApi as any).snapList().length - 1
-      }
-      
-      console.log('[Gallery] Next clicked, current:', current, 'maxIndex:', maxIndex)
-      
-      if (current < maxIndex) {
-        // Try different scroll methods
-        if (typeof (emblaApi as any).scrollTo === 'function') {
-          (emblaApi as any).scrollTo(current + 1)
-        } else if (typeof (emblaApi as any).select === 'function') {
-          (emblaApi as any).select(current + 1)
-        } else if (typeof (emblaApi as any).to === 'function') {
-          (emblaApi as any).to(current + 1)
-        } else {
-          console.warn('[Gallery] No scroll method found!')
-        }
+      // Use goToNext() - Embla v9 method
+      if (typeof (emblaApi as any).goToNext === 'function') {
+        (emblaApi as any).goToNext()
+        console.log('[Gallery] Called goToNext()')
+      } else {
+        console.warn('[Gallery] goToNext method not found')
       }
     } catch (e) {
       console.error('[Gallery] Error in next button click:', e)
@@ -151,16 +110,11 @@ function useCarouselNavigation(
 
   const updateButtonState = useCallback((api: EmblaCarouselType) => {
     try {
-      // Embla v9 uses canGoToNext/canGoToPrev
       const canPrev = typeof (api as any).canGoToPrev === 'function' 
         ? (api as any).canGoToPrev()
-        : typeof api.canScrollPrev === 'function' 
-        ? api.canScrollPrev()
         : false
       const canNext = typeof (api as any).canGoToNext === 'function'
         ? (api as any).canGoToNext()
-        : typeof api.canScrollNext === 'function'
-        ? api.canScrollNext()
         : false
       setPrevBtnDisabled(!canPrev)
       setNextBtnDisabled(!canNext)
@@ -174,10 +128,7 @@ function useCarouselNavigation(
   useEffect(() => {
     if (!emblaApi) return
     
-    // Debug logging - show all available methods
-    const allMethods = Object.keys(emblaApi).filter(key => typeof (emblaApi as any)[key] === 'function')
-    console.log('[Gallery] Available methods:', allMethods)
-    console.log('[Gallery] Full API:', emblaApi)
+    console.log('[Gallery] Carousel initialized, using Embla v9 methods: goToNext, goToPrev, goTo, selectedSnap, snapList')
     
     updateButtonState(emblaApi)
     emblaApi
@@ -201,14 +152,18 @@ function useDotNavigation(emblaApi: EmblaCarouselType | undefined): DotNavigatio
   const onDotButtonClick = useCallback(
     (index: number) => {
       if (!emblaApi) return
-      emblaApi.scrollTo(index)
+      if (typeof (emblaApi as any).goTo === 'function') {
+        (emblaApi as any).goTo(index)
+      }
     },
     [emblaApi]
   )
 
   const initializeSnaps = useCallback((api: EmblaCarouselType) => {
     try {
-      const snaps = typeof api.scrollSnapList === 'function' ? api.scrollSnapList() : []
+      const snaps = typeof (api as any).snapList === 'function' 
+        ? (api as any).snapList() 
+        : []
       setScrollSnaps(snaps || [])
     } catch (e) {
       setScrollSnaps([])
@@ -217,17 +172,10 @@ function useDotNavigation(emblaApi: EmblaCarouselType | undefined): DotNavigatio
 
   const updateSelectedIndex = useCallback((api: EmblaCarouselType) => {
     try {
-      const scrollProgress = typeof api.scrollProgress === 'function' ? api.scrollProgress() : undefined
-      const snaps = typeof api.scrollSnapList === 'function' ? api.scrollSnapList() : undefined
-      if (scrollProgress === undefined || !snaps) return
-      let selectedIndex = 0
-      
-      for (let i = 0; i < snaps.length; i++) {
-        if (scrollProgress < snaps[i]) break
-        selectedIndex = i
-      }
-      
-      setSelectedIndex(selectedIndex)
+      const index = typeof (api as any).selectedSnap === 'function' 
+        ? (api as any).selectedSnap()
+        : 0
+      setSelectedIndex(index)
     } catch (e) {
       setSelectedIndex(0)
     }
@@ -261,7 +209,9 @@ function calculateParallaxTranslate(
   tweenFactor: number
 ): number {
   try {
-    const snaps = typeof api.scrollSnapList === 'function' ? api.scrollSnapList() : undefined
+    const snaps = typeof (api as any).snapList === 'function' 
+      ? (api as any).snapList() 
+      : undefined
     if (!snaps) return 0
     const snap = snaps[slideIndex]
     let diffToTarget = scrollProgress
@@ -297,7 +247,9 @@ function useParallaxEffect(emblaApi: EmblaCarouselType | undefined): CarouselEve
 
   const initializeTweenNodes = useCallback((api: EmblaCarouselType) => {
     try {
-      const nodes = typeof api.slideNodes === 'function' ? api.slideNodes() : undefined
+      const nodes = typeof (api as any).slideNodes === 'function' 
+        ? (api as any).slideNodes() 
+        : undefined
       if (nodes) {
         tweenNodes.current = nodes.map(
           (node) => node.querySelector('.embla__parallax__layer') as HTMLElement
@@ -310,7 +262,9 @@ function useParallaxEffect(emblaApi: EmblaCarouselType | undefined): CarouselEve
 
   const calculateTweenFactor = useCallback((api: EmblaCarouselType) => {
     try {
-      const snaps = typeof api.scrollSnapList === 'function' ? api.scrollSnapList() : undefined
+      const snaps = typeof (api as any).snapList === 'function' 
+        ? (api as any).snapList() 
+        : undefined
       if (snaps) tweenFactor.current = CAROUSEL_PARALLAX_TWEEN_FACTOR_BASE * snaps.length
     } catch (e) {
       tweenFactor.current = CAROUSEL_PARALLAX_TWEEN_FACTOR_BASE
