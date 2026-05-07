@@ -80,43 +80,41 @@ function useCarouselNavigation(
 
   const onPrevButtonClick = useCallback(() => {
     if (!emblaApi) return
-    // Try both old and new scroll method names
     if (typeof emblaApi.scrollPrev === 'function') {
       emblaApi.scrollPrev()
     } else if (typeof (emblaApi as any).scrollTo === 'function') {
-      const currentSnap = (emblaApi as any).selectedScrollSnap?.()
-      if (currentSnap !== undefined && currentSnap > 0) {
-        (emblaApi as any).scrollTo(currentSnap - 1)
+      const current = (emblaApi as any).selectedScrollSnap?.()
+      if (current !== undefined && current > 0) {
+        (emblaApi as any).scrollTo(current - 1)
       }
     }
   }, [emblaApi])
 
   const onNextButtonClick = useCallback(() => {
     if (!emblaApi) return
-    // Try both old and new scroll method names
     if (typeof emblaApi.scrollNext === 'function') {
       emblaApi.scrollNext()
     } else if (typeof (emblaApi as any).scrollTo === 'function') {
-      const currentSnap = (emblaApi as any).selectedScrollSnap?.()
-      const snapList = (emblaApi as any).scrollSnapList?.()
-      if (currentSnap !== undefined && snapList && currentSnap < snapList.length - 1) {
-        (emblaApi as any).scrollTo(currentSnap + 1)
+      const current = (emblaApi as any).selectedScrollSnap?.()
+      const snaps = (emblaApi as any).scrollSnapList?.()
+      if (current !== undefined && snaps && current < snaps.length - 1) {
+        (emblaApi as any).scrollTo(current + 1)
       }
     }
   }, [emblaApi])
 
   const updateButtonState = useCallback((api: EmblaCarouselType) => {
     try {
-      // Try both old and new API names for compatibility
-      const canPrev = typeof api.canScrollPrev === 'function' 
-        ? api.canScrollPrev() 
-        : typeof (api as any).canGoPrev === 'function'
-        ? (api as any).canGoPrev()
+      // Embla v9 uses canGoToNext/canGoToPrev
+      const canPrev = typeof (api as any).canGoToPrev === 'function' 
+        ? (api as any).canGoToPrev()
+        : typeof api.canScrollPrev === 'function' 
+        ? api.canScrollPrev()
         : false
-      const canNext = typeof api.canScrollNext === 'function'
+      const canNext = typeof (api as any).canGoToNext === 'function'
+        ? (api as any).canGoToNext()
+        : typeof api.canScrollNext === 'function'
         ? api.canScrollNext()
-        : typeof (api as any).canGoNext === 'function'
-        ? (api as any).canGoNext()
         : false
       setPrevBtnDisabled(!canPrev)
       setNextBtnDisabled(!canNext)
