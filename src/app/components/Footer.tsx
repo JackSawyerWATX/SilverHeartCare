@@ -25,18 +25,21 @@ export function Footer() {
             <div className="flex gap-2 md:gap-4 p-2 md:p-4">
               <a
                 href="https://www.facebook.com/silverheartcares/"
+                target="_blank"
                 className="w-8 md:w-10 h-8 md:h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-blue-600 transition text-xs md:text-base"
               >
                 <span className="font-bold">f</span>
               </a>
               <a
                 href="https://x.com/SilverHeartCare"
+                target="_blank"
                 className="w-8 md:w-10 h-8 md:h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-blue-400 transition text-xs md:text-base"
               >
                 <span className="font-bold">𝕏</span>
               </a>
               <a
                 href="https://www.linkedin.com/company/silver-heart-care-inc/posts/?feedView=all"
+                target="_blank"
                 className="w-8 md:w-10 h-8 md:h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-blue-700 transition text-xs font-bold"
               >
                 <span className="font-bold text-xs">in</span>
