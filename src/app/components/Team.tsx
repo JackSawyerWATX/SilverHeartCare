@@ -190,7 +190,7 @@ const BOARD_MEMBERS: TeamMember[] = [
     image: sanjay,
   },
   {
-    name: "Meenakshi Sanjay",
+    name: "Meenakshi Singh",
     role: "Board Member",
     bio: "Meenakshi is a career educator with an MBA, currently working in Special Education in Fort Bend School District. She volunteers at Fort Bend Education Foundation and has a career in education spanning over 10 years. In her spare time, Meenakshi enjoys running, meditating, and traveling.",
     image: meena,
