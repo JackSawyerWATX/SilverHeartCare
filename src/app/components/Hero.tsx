@@ -13,14 +13,13 @@ export function Hero() {
             style={{
               fontFamily:
                 "Arial Narrow, Roboto Condensed, sans-serif-condensed, sans-serif",
-              textShadow: "-3px 4px 4px rgba(0, 0, 0, 0.3)",
             }}
           >
             <span
-              className="text-gray-500 text-3xl sm:text-5xl md:text-6xl"
+              className="text-blue-800 text-3xl sm:text-5xl md:text-6xl"
               style={{
                 WebkitTextFillColor: "transparent",
-                WebkitTextStroke: "2px #8A8A8A",
+                WebkitTextStroke: "2px #000080",
                 paintOrder: "stroke",
                 display: "block",
                 marginBottom: "8px sm:mb-[15px]",
@@ -28,7 +27,7 @@ export function Hero() {
             >
               SILVER HEART CARE
             </span>
-            <span className="text-blue-500 text-3xl sm:text-5xl md:text-6xl">IS COMPASSIONATE CARE</span>
+            <span className="text-blue-800 text-3xl sm:text-5xl md:text-6xl">IS COMPASSIONATE CARE</span>
           </h1>
         </div>
         {/* Glass Frame */}
@@ -54,7 +53,7 @@ export function Hero() {
         <div className="absolute bottom-0 left-0 right-0 bg-blue-900/75 py-4 md:py-7 z-30">
           <div className="max-w-7xl mx-auto px-6">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-8">
-              <div className="text-white text-sm sm:text-base md:text-lg leading-relaxed w-full md:max-w-3xl">
+              <div className="text-white text-base sm:text-lg lg:text-2xl leading-relaxed w-full md:max-w-3xl">
                 <p className="mb-2">
                   Our primary goal is to support seniors
                   with care that they need.

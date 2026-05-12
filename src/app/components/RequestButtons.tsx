@@ -28,8 +28,8 @@ export function RequestButtons() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 min-h-[500px] md:h-[560px] flex items-center justify-center md:justify-start py-16 md:py-0">
         <div className="flex flex-col gap-8 w-full md:max-w-[50%]">
-          <div className="flex flex-col sm:flex-row justify-center md:justify-start flex-wrap gap-8 sm:gap-10 md:gap-12">
-            <div className="flex flex-col items-center gap-4 flex-1 min-w-[140px] max-w-[210px]">
+          <div className="flex flex-col sm:flex-row justify-center md:justify-start flex-wrap gap-16 sm:gap-20 md:gap-24">
+            <div className="flex flex-col items-center gap-4 flex-1 min-w-[200px] max-w-[400px] lg:max-w-[500px]">
               <button
                 onClick={() => navigate("/ride-request")}
                 className="px-5 sm:px-6 py-2 sm:py-3 border-2 border-blue-900 text-blue-900 rounded-full font-medium hover:bg-blue-900 hover:text-white transition text-xs sm:text-sm md:text-base whitespace-nowrap"
@@ -39,11 +39,11 @@ export function RequestButtons() {
               <img
                 src={wheelsOfWellness}
                 alt="Wheels of Wellness"
-                className="w-[155px] sm:w-[182px] md:w-[286px] h-auto"
+                className="w-[250px] sm:w-[350px] md:w-[450px] lg:w-[550px] h-auto"
                 loading="lazy"
               />
             </div>
-            <div className="flex flex-col items-center gap-4 flex-1 min-w-[140px] max-w-[210px] ml-[41px] sm:ml-[49px] md:ml-0">
+            <div className="flex flex-col items-center gap-4 flex-1 min-w-[200px] max-w-[400px] lg:max-w-[500px]">
               <button
                 onClick={() => navigate("/service-request")}
                 className="px-5 sm:px-6 py-2 sm:py-3 border-2 border-blue-900 text-blue-900 rounded-full font-medium hover:bg-blue-900 hover:text-white transition text-xs sm:text-sm md:text-base whitespace-nowrap"
@@ -53,7 +53,7 @@ export function RequestButtons() {
               <img
                 src={shcValues}
                 alt="SHC Values"
-                className="w-[155px] sm:w-[182px] md:w-[286px] h-auto"
+                className="w-[250px] sm:w-[350px] md:w-[450px] lg:w-[550px] h-auto"
                 loading="lazy"
               />
             </div>
