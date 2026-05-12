@@ -27,7 +27,6 @@ import {
 } from 'react'
 import {
   EmblaCarouselType,
-  EmblaEventType,
   EmblaOptionsType
 } from 'embla-carousel'
 import useEmblaCarousel from 'embla-carousel-react'
@@ -37,7 +36,6 @@ import '../../styles/gallery.css'
 
 const CAROUSEL_PARALLAX_TWEEN_FACTOR_BASE = 0.2
 const CAROUSEL_EVENTS = {
-  RE_INIT: 'reInit',
   SELECT: 'select',
   SCROLL: 'scroll'
 } as const
@@ -57,7 +55,7 @@ type DotNavigation = {
   onDotButtonClick: (index: number) => void
 }
 
-type CarouselEventListener = (api: EmblaCarouselType, event?: EmblaEventType) => void
+type CarouselEventListener = (api: EmblaCarouselType) => void
 
 type GalleryProps = {
   slides: number[]
@@ -132,7 +130,6 @@ function useCarouselNavigation(
     
     updateButtonState(emblaApi)
     emblaApi
-      .on(CAROUSEL_EVENTS.RE_INIT, updateButtonState)
       .on(CAROUSEL_EVENTS.SELECT, updateButtonState)
   }, [emblaApi, updateButtonState])
 
@@ -187,8 +184,6 @@ function useDotNavigation(emblaApi: EmblaCarouselType | undefined): DotNavigatio
     initializeSnaps(emblaApi)
     updateSelectedIndex(emblaApi)
     emblaApi
-      .on(CAROUSEL_EVENTS.RE_INIT, initializeSnaps)
-      .on(CAROUSEL_EVENTS.RE_INIT, updateSelectedIndex)
       .on(CAROUSEL_EVENTS.SELECT, updateSelectedIndex)
   }, [emblaApi, initializeSnaps, updateSelectedIndex])
 
@@ -272,17 +267,16 @@ function useParallaxEffect(emblaApi: EmblaCarouselType | undefined): CarouselEve
   }, [])
 
   const applyParallaxTransform: CarouselEventListener = useCallback(
-    (api: EmblaCarouselType, event?: EmblaEventType) => {
+    (api: EmblaCarouselType) => {
       try {
         const engine = typeof api.internalEngine === 'function' ? api.internalEngine() : undefined
         const scrollProgress = typeof api.scrollProgress === 'function' ? api.scrollProgress() : undefined
         const slidesInView = typeof api.slidesInView === 'function' ? api.slidesInView() : undefined
         if (!engine || scrollProgress === undefined || !slidesInView) return
-        const isScrollEvent = event === CAROUSEL_EVENTS.SCROLL
 
         tweenNodes.current.forEach((tweenNode, slideIndex) => {
           if (!tweenNode) return
-          if (isScrollEvent && !slidesInView.includes(slideIndex)) return
+          if (!slidesInView.includes(slideIndex)) return
 
           const translate = calculateParallaxTranslate(
             api,
@@ -309,9 +303,6 @@ function useParallaxEffect(emblaApi: EmblaCarouselType | undefined): CarouselEve
     applyParallaxTransform(emblaApi)
     
     emblaApi
-      .on(CAROUSEL_EVENTS.RE_INIT, initializeTweenNodes)
-      .on(CAROUSEL_EVENTS.RE_INIT, calculateTweenFactor)
-      .on(CAROUSEL_EVENTS.RE_INIT, applyParallaxTransform)
       .on(CAROUSEL_EVENTS.SCROLL, applyParallaxTransform)
   }, [emblaApi, initializeTweenNodes, calculateTweenFactor, applyParallaxTransform])
 
