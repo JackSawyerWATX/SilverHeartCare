@@ -10,9 +10,9 @@ export function TeamPhoto() {
           className="w-full h-auto object-contain"
           loading="lazy"
         />
-        <div className="absolute top-0 left-0 right-0 backdrop-blur-sm bg-black/40 min-h-[80px] md:h-[100px] flex items-center justify-center px-4 py-3">
+        <div className="absolute top-0 left-0 right-0 backdrop-blur-sm bg-black/40 min-h-[50px] md:h-[100px] flex items-center justify-center px-4 py-3">
           <h2
-            className="text-center text-lg sm:text-3xl md:text-5xl font-bold text-white italic leading-tight"
+            className="text-center text-sm sm:text-3xl md:text-5xl font-bold text-white italic leading-tight"
           >
             Proudly serving the Greater Houston area since 2020
           </h2>
