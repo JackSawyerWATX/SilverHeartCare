@@ -7,7 +7,7 @@ export function Hero() {
       className="relative"
     >
       <div className="max-w-7xl mx-auto px-6 py-8 md:py-16">
-        <div className="flex flex-col justify-center h-full min-h-[300px] md:min-h-[450px] relative z-20">
+        <div className="flex flex-col justify-center h-full min-h-[300px] md:min-h-[450px] relative z-20 mb-[100px] sm:mb-[120px] md:mb-0">
           <h1
             className="text-2xl sm:text-4xl md:text-5xl font-bold leading-tight"
             style={{
@@ -37,7 +37,7 @@ export function Hero() {
         ></div>
 
         {/* Image */}
-        <div className="absolute bottom-0 right-0 w-[300px] h-[200px] md:w-[500px] md:h-[350px] lg:w-[750px] lg:h-[500px] z-10">
+        <div className="hidden md:block absolute bottom-0 right-0 w-[300px] h-[200px] md:w-[500px] md:h-[350px] lg:w-[750px] lg:h-[500px] z-10">
           <img
             src={gettingARide}
             alt="Senior getting a ride"

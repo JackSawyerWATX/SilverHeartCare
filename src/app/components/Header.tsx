@@ -32,7 +32,7 @@ export function NavBar() {
 
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-6 py-0 flex items-center justify-between h-24">
+      <div className="max-w-7xl mx-auto px-6 py-0 flex items-center justify-center md:justify-between h-24 relative">
         <div className="flex items-center gap-3">
           <Link to="/">
             <img
@@ -152,7 +152,7 @@ export function NavBar() {
         </nav>
         <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
           <SheetTrigger asChild>
-            <button className="md:hidden focus:outline-none">
+            <button className="md:hidden focus:outline-none absolute right-6">
               <Menu className="w-6 h-6 text-gray-700" />
             </button>
           </SheetTrigger>
