@@ -12,7 +12,7 @@ export default function TeamPage() {
       <div
         className="min-h-screen"
         style={{
-          background: "linear-gradient(to bottom, #d1d5db 0%, #d1d5db 10%, #f3f4f6 20%, #f3f4f6 100%)",
+          background: "#f3f4f6",
         }}
       >
         <NavBar />

@@ -9,7 +9,7 @@ import advisoryBoard from "../../imports/advisoryBoard.jpg"
 
 // Styles and Constants
 
-const SECTION_BACKGROUND = "linear-gradient(to bottom, #d1d5db 0%, #d1d5db 10%, #f3f4f6 20%, #f3f4f6 100%)";
+const SECTION_BACKGROUND = "#f3f4f6";
 
 const PAGE_TITLE_STYLES = {
   fontFamily: "Arial Narrow, Roboto Condensed, sans-serif-condensed, sans-serif",
@@ -19,7 +19,7 @@ const PAGE_TITLE_STYLES = {
 };
 
 const MEMBER_IMAGE_HEIGHT = "h-64 md:h-96";
-const ADVISORY_IMAGE_HEIGHT = "h-80 md:h-120";
+const ADVISORY_IMAGE_HEIGHT = "h-48 md:h-80 lg:h-120";
 
 // Component Interfaces
 
@@ -95,17 +95,18 @@ function Advisory({
 }
 
 function TeamGridLayout({ founder, boardMembers }: { founder: TeamMember; boardMembers: TeamMember[] }) {
-  // Arrange as rows: [founder, devika], [sanjay, virendra], [meenakshi, upma]
+  // Arrange as rows: [founder, Devika], [Sanjay, Meenakshi], [Virendra, Upma]
+  // On small screens: single column shows: Raghav, Devika, Sanjay, Meenakshi, Virendra, Upma
   const gridRows = [
     [founder, boardMembers[2]],                      // Raghav, Devika
-    [boardMembers[0], boardMembers[3]],              // Sanjay, Virendra
-    [boardMembers[1], boardMembers[4]],              // Meenakshi, Upma
+    [boardMembers[0], boardMembers[1]],              // Sanjay, Meenakshi
+    [boardMembers[3], boardMembers[4]],              // Virendra, Upma
   ];
 
   return (
     <div className="mb-20">
       <SectionHeader title="Board of Directors" />
-      <div className="grid grid-cols-2 gap-8 md:gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
         {gridRows.map((row, rowIndex) =>
           row.map((member, colIndex) => (
             <div key={`${rowIndex}-${colIndex}`} className="flex flex-col items-center">

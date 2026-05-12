@@ -14,6 +14,8 @@ import {
   Sheet,
   SheetContent,
   SheetTrigger,
+  SheetTitle,
+  SheetDescription,
 } from "./ui/sheet";
 
 
@@ -157,6 +159,8 @@ export function NavBar() {
             </button>
           </SheetTrigger>
           <SheetContent side="right" className="w-[280px] bg-white">
+            <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+            <SheetDescription className="sr-only">Mobile navigation menu for Silver Heart Care website</SheetDescription>
             <nav className="flex flex-col gap-6 mt-8">
               <Link
                 to="/about"

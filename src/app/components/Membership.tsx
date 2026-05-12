@@ -9,7 +9,7 @@ import BrookdalePhoto from "../../imports/Brookdale.jpg";
 import RaceDay from "../../imports/12_5RaceDay.jpg";
 import CanDrive from "../../imports/1YearCanDrive.jpg"
 
-const SECTION_BACKGROUND = "linear-gradient(to bottom, #d1d5db 0%, #d1d5db 10%, #f3f4f6 20%, #f3f4f6 100%)";
+const SECTION_BACKGROUND = "#f3f4f6";
 
 const PAGE_TITLE_STYLES = {
   fontFamily: "Arial Narrow, Roboto Condensed, sans-serif-condensed, sans-serif",

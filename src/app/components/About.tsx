@@ -6,7 +6,7 @@ import fbcc from "../../imports/FBCC.png";
 
 // Styles and Constants
 
-const SECTION_BACKGROUND = "linear-gradient(to bottom, #d1d5db 0%, #d1d5db 10%, #f3f4f6 20%, #f3f4f6 100%)";
+const SECTION_BACKGROUND = "#f3f4f6";
 
 const PAGE_TITLE_STYLES = {
   fontFamily: "Arial Narrow, Roboto Condensed, sans-serif-condensed, sans-serif",
@@ -90,7 +90,7 @@ function PageTitle({ title }: PageTitleProps) {
 
 function ImpactStatement({ heading, content, children }: ImpactStatementProps) {
   return (
-    <div className="bg-gradient-to-r from-blue-900 to-blue-800 rounded-lg p-12 text-white text-center mb-16">
+    <div className="bg-blue-900 rounded-lg p-12 text-white text-center mb-16">
       <h3 className="text-3xl font-bold mb-4">{heading}</h3>
       {children ? <div className="text-lg leading-relaxed">{children}</div> : <p className="text-lg leading-relaxed">{content}</p>}
     </div>

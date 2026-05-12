@@ -16,10 +16,10 @@ export const STYLES = {
   } as const,
 
   /**
-   * Silver gradient background - used across all pages
+   * Silver background - used across all pages
    */
   SILVER_GRADIENT: {
-    background: "linear-gradient(to bottom, #d1d5db 0%, #d1d5db 10%, #f3f4f6 20%, #f3f4f6 100%)",
+    background: "#f3f4f6",
   } as const,
 
   /**
