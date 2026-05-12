@@ -5,9 +5,15 @@
   max-width: 77.28rem;
   margin: auto;
 
-  --slide-height: 30.59rem;
+  --slide-height: 15rem;
   --slide-spacing: 1rem;
   --slide-size: 80%;
+}
+
+@media (min-width: 768px) {
+  .embla {
+    --slide-height: 30.59rem;
+  }
 }
 
 .embla__viewport {

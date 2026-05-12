@@ -10,7 +10,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mb-12">
           <div>
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-gray-600 to-gray-700 rounded-md flex items-center justify-center">
+              <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-600 rounded-md flex items-center justify-center">
                 <span className="text-white text-xs font-bold">SRC</span>
               </div>
               <h3 className="text-white font-bold text-xs md:text-sm uppercase tracking-wider">
