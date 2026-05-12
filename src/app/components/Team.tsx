@@ -13,9 +13,8 @@ const SECTION_BACKGROUND = "linear-gradient(to bottom, #d1d5db 0%, #d1d5db 10%, 
 
 const PAGE_TITLE_STYLES = {
   fontFamily: "Arial Narrow, Roboto Condensed, sans-serif-condensed, sans-serif",
-  color: "#3b82f6",
-  textShadow: "-3px 4px 4px rgba(0, 0, 0, 0.3)",
-  borderBottom: "4px solid #3b82f6",
+  color: "#000080",
+  borderBottom: "4px solid #000080",
   paddingBottom: "8px",
 };
 
@@ -29,14 +28,6 @@ interface TeamMember {
   role: string;
   bio: string;
   image: string;
-}
-
-interface TeamMemberCardProps {
-  name: string;
-  role: string;
-  bio: string;
-  image: string;
-  imageHeight?: string;
 }
 
 interface AdvisoryGridProps {
@@ -72,36 +63,6 @@ function SectionHeader({ title }: SectionHeaderProps) {
   return <h2 className="text-4xl font-bold text-gray-800 mb-12">{title}</h2>;
 }
 
-function TeamMemberCard({ 
-  name, 
-  role, 
-  bio, 
-  image, 
-  imageHeight = MEMBER_IMAGE_HEIGHT 
-}: TeamMemberCardProps) {
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center mb-20">
-      <div>
-        <h3 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">{name}</h3>
-        <p className="text-lg md:text-xl font-semibold text-blue-600 mb-6">{role}</p>
-        <p className="text-gray-600 text-base md:text-lg leading-relaxed">{bio}</p>
-      </div>
-      <div className="flex flex-col items-center justify-center">
-        <div className={`bg-gray-300 ${imageHeight} rounded-lg flex items-center justify-center w-full overflow-hidden`}>
-          {image ? (
-            <img src={image} alt={name} className="w-full h-full object-cover rounded-lg" loading="lazy" />
-          ) : (
-            <div className="flex items-center justify-center w-full h-full text-gray-500">
-              <span>Photo placeholder</span>
-            </div>
-          )}
-        </div>
-        <p className="text-center text-gray-600 text-md mt-3">{name}</p>
-      </div>
-    </div>
-  );
-}
-
 function Advisory({ 
   advisory, 
   groupPhoto, 
@@ -120,40 +81,50 @@ function Advisory({
       </div>
       <div className="bg-white p-8 rounded-lg border border-gray-200">
         <p className="text-gray-700 text-lg leading-relaxed">
-          {advisory.join(" • ")}
+          <span className="font-bold">{advisory[0]}</span>
+          {advisory.length > 1 && (
+            <>
+              {" • "}
+              {advisory.slice(1).join(" • ")}
+            </>
+          )}
         </p>
       </div>
     </div>
   );
 }
 
-function FounderSection({ founder }: { founder: TeamMember }) {
-  return (
-    <div className="mb-20">
-      <SectionHeader title="Founder" />
-      <TeamMemberCard
-        name={founder.name}
-        role={founder.role}
-        bio={founder.bio}
-        image={founder.image}
-      />
-    </div>
-  );
-}
+function TeamGridLayout({ founder, boardMembers }: { founder: TeamMember; boardMembers: TeamMember[] }) {
+  // Arrange as rows: [founder, devika], [sanjay, virendra], [meenakshi, upma]
+  const gridRows = [
+    [founder, boardMembers[2]],                      // Raghav, Devika
+    [boardMembers[0], boardMembers[3]],              // Sanjay, Virendra
+    [boardMembers[1], boardMembers[4]],              // Meenakshi, Upma
+  ];
 
-function BoardOfDirectorsSection({ members }: { members: TeamMember[] }) {
   return (
     <div className="mb-20">
       <SectionHeader title="Board of Directors" />
-      {members.map((member, index) => (
-        <TeamMemberCard
-          key={index}
-          name={member.name}
-          role={member.role}
-          bio={member.bio}
-          image={member.image}
-        />
-      ))}
+      <div className="grid grid-cols-2 gap-8 md:gap-12">
+        {gridRows.map((row, rowIndex) =>
+          row.map((member, colIndex) => (
+            <div key={`${rowIndex}-${colIndex}`} className="flex flex-col items-center">
+              <div className={`bg-gray-300 ${MEMBER_IMAGE_HEIGHT} rounded-lg flex items-center justify-center w-full overflow-hidden mb-4`}>
+                {member.image ? (
+                  <img src={member.image} alt={member.name} className="w-full h-full object-cover rounded-lg" loading="lazy" />
+                ) : (
+                  <div className="flex items-center justify-center w-full h-full text-gray-500">
+                    <span>Photo placeholder</span>
+                  </div>
+                )}
+              </div>
+              <h3 className="text-2xl font-bold text-gray-800 mb-2">{member.name}</h3>
+              <p className="text-lg font-semibold text-blue-600 mb-4">{member.role}</p>
+              <p className="text-gray-600 text-base leading-relaxed">{member.bio}</p>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 }
@@ -216,6 +187,7 @@ const BOARD_MEMBERS: TeamMember[] = [
 ];
 
 const ADVISORY_BOARD = [
+  "Left to Right",
   "Mukulesh Shah",
   "Upma Shah",
   "Raghav Singh",
@@ -225,12 +197,12 @@ const ADVISORY_BOARD = [
   "Meenakshi Singh",
   "Carol McCutcheon",
   "Sanjay Singh",
-  "Ankur Sanghi",
-  "Renu Narang",
+  "Jeffrey Gilcrease",
   "Dhara Goel",
   "Sharad Gupta",
   "Barkha Gupta",
-  "Boba Nikolic",
+  "Ankur Sanghi",
+  "Renu Narang"
 ];
 
 // Main Componenets
@@ -243,8 +215,7 @@ export function Team() {
     >
       <div className="max-w-7xl mx-auto px-6">
         <PageTitle title="Our Team" />
-        <FounderSection founder={FOUNDER} />
-        <BoardOfDirectorsSection members={BOARD_MEMBERS} />
+        <TeamGridLayout founder={FOUNDER} boardMembers={BOARD_MEMBERS} />
         <AdvisorySectionContainer advisory={ADVISORY_BOARD} groupPhoto={advisoryBoard} />
       </div>
     </section>
