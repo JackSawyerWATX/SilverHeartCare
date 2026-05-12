@@ -88,12 +88,9 @@ export default function GalleryPage() {
         <main className="w-full">
           <div className="max-w-7xl mx-auto px-6 py-16">
           <div className="mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Gallery
-            </h1>
-            <p className="text-lg text-gray-600 max-w-3xl">
+            <h3 className="text-xl text-gray-600">
               Explore our photo gallery showcasing our community, events, and the wonderful moments we share at Silver Heart Care.
-            </p>
+            </h3>
           </div>
 
           {/* Community Events */}
