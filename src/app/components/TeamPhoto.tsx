@@ -13,7 +13,6 @@ export function TeamPhoto() {
         <div className="absolute top-0 left-0 right-0 backdrop-blur-sm bg-black/40 min-h-[80px] md:h-[100px] flex items-center justify-center px-4 py-3">
           <h2
             className="text-center text-lg sm:text-3xl md:text-5xl font-bold text-white italic leading-tight"
-            style={{ textShadow: "-3px 4px 4px rgba(0, 0, 0, 0.5)" }}
           >
             Proudly serving the Greater Houston area since 2020
           </h2>

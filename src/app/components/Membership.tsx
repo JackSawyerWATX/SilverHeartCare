@@ -14,7 +14,6 @@ const SECTION_BACKGROUND = "linear-gradient(to bottom, #d1d5db 0%, #d1d5db 10%, 
 const PAGE_TITLE_STYLES = {
   fontFamily: "Arial Narrow, Roboto Condensed, sans-serif-condensed, sans-serif",
   color: "#3b82f6",
-  textShadow: "-3px 4px 4px rgba(0, 0, 0, 0.3)",
   borderBottom: "4px solid #3b82f6",
   paddingBottom: "8px",
 };

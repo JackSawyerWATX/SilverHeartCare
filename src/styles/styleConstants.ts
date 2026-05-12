@@ -11,7 +11,6 @@ export const STYLES = {
   PAGE_TITLE: {
     fontFamily: "Arial Narrow, Roboto Condensed, sans-serif-condensed, sans-serif",
     color: "#3b82f6",
-    textShadow: "-3px 4px 4px rgba(0, 0, 0, 0.3)",
     borderBottom: "4px solid #3b82f6",
     paddingBottom: "8px",
   } as const,
