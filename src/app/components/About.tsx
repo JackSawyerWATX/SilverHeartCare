@@ -10,8 +10,8 @@ const SECTION_BACKGROUND = "#f3f4f6";
 
 const PAGE_TITLE_STYLES = {
   fontFamily: "Arial Narrow, Roboto Condensed, sans-serif-condensed, sans-serif",
-  color: "#3b82f6",
-  borderBottom: "4px solid #3b82f6",
+  color: "#000080",
+  borderBottom: "4px solid #000080",
   paddingBottom: "8px",
 };
 

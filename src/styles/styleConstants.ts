@@ -10,8 +10,8 @@ export const STYLES = {
    */
   PAGE_TITLE: {
     fontFamily: "Arial Narrow, Roboto Condensed, sans-serif-condensed, sans-serif",
-    color: "#3b82f6",
-    borderBottom: "4px solid #3b82f6",
+    color: "#000080",
+    borderBottom: "4px solid #000080",
     paddingBottom: "8px",
   } as const,
 
@@ -36,7 +36,7 @@ export const STYLES = {
    * Button styles
    */
   BUTTON_PRIMARY: {
-    backgroundColor: "#3b82f6",
+    backgroundColor: "#000080",
     color: "white",
     padding: "12px 24px",
     borderRadius: "6px",
